@@ -8,7 +8,7 @@
 
 `$`sudo -u postgres psql
 
-`postgres=#`CREATE DATABASE buscamed;
+`postgres=#`CREATE DATABASE buscamedserver;
 
 `postgres=#`CREATE USER buscameduser WITH PASSWORD '1234';
 
