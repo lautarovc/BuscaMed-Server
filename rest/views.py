@@ -69,7 +69,6 @@ def retrieveTweets(listaMedicinas):
 # Funcion que se encarga de la busqueda de los tweets
 def buscaTweets(medName):
 
-
 	# Se agregó lo de problema para casos en los que la persona escribia una medicina que no existia
 	activo,listaMedicinas,problema = searchDataBase(medName)
 	if problema:
@@ -91,7 +90,12 @@ def buscaTweets(medName):
 # Create your views here.
 class TweetViewSet(viewsets.ReadOnlyModelViewSet):
 
-	def get(self, request, format=None):
-    	queryset = Tweet.objects.all()
-    	serializer = TweetSerializer(queryset, many=True)
-    	return Response(serializer.data)
+	queryset = Tweet.objects.none()
+	serializer_class = TweetSerializer
+
+	#@action(detail=True)
+	def retrieve(self, request, pk=None):
+
+		queryset = Tweet.objects.all()
+		print("tatatatattAtatatata")
+		return Response(queryset)
