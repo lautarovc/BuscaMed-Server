@@ -90,12 +90,11 @@ def buscaTweets(medName):
 # Create your views here.
 class TweetViewSet(viewsets.ReadOnlyModelViewSet):
 
-	queryset = Tweet.objects.none()
+	queryset = Tweet.objects.all()
 	serializer_class = TweetSerializer
 
 	#@action(detail=True)
-	def retrieve(self, request, pk=None):
-
+	def list(self, request, pk=None):
 		queryset = Tweet.objects.all()
-		print("tatatatattAtatatata")
-		return Response(queryset)
+		serializer = TweetSerializer(queryset, many=True)
+		return Response(serializer.data)
