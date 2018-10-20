@@ -5,9 +5,12 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from rest_framework import viewsets
 from rest_framework.response import Response
+from datetime import datetime, timezone
 
-from .serializers import TweetSerializer
+from .serializers import TweetSerializer, MedicinaSerializer, ActivoSerializer
 from .models import *
+from classifier import classifier
+
 
 from django.contrib.auth.models import User, Group
 
@@ -59,12 +62,11 @@ def searchDataBase(medName):
 
 # Aqui se hace lo de la busqueda de los tweets en la base de datos 
 def retrieveTweets(listaMedicinas):
-	listaTweets = []	
+	listaTweets = Tweet.objects.none()
 	for i in listaMedicinas:
 		tweets = Tweet.objects.filter(medicina=i)
-		for j in tweets:
-			listaTweets.append(j.link)
-	return listaTweets
+		listaTweets = listaTweets | tweets
+	return listaTweets.order_by('-fecha')
 
 # Funcion que se encarga de la busqueda de los tweets
 def buscaTweets(medName):
@@ -85,6 +87,46 @@ def buscaTweets(medName):
 	medEncontrada = True
 	return (listaTweets, medEncontrada)
 
+
+# Funcion para buscar tweets directamente en Twitter
+def buscaTwitter(medName):
+	# Se agregó lo de problema para casos en los que la persona escribia una medicina que no existia
+	activo,listaMedicinas,problema = searchDataBase(medName)
+	if problema:
+		medEncontrada = False
+		return (listaMedicinas, medEncontrada)
+
+	# Se quitan aquellas medicinas con que son palabras comunes y que tienen otras medicinas "mas representativas"
+	for i in quitarComunes:
+		if i in listaMedicinas:
+			listaMedicinas.remove(i)
+			break
+
+	dbTweets = retrieveTweets(listaMedicinas)
+
+	# Si hay tweets en la base de datos
+	if dbTweets:
+		edad = datetime.now(timezone.utc) - dbTweets[0].fecha
+
+		# Si el tweet mas reciente fue hace menos de 30 minutos
+		if ((edad.seconds/60) < 30):
+			listaTweets = dbTweets
+
+		# En caso contrario, se buscan nuevos tweets a partir del id del tweet mas reciente
+		else:
+			sinceId = dbTweets[0].getId()
+			classifier.listarTweets(listaMedicinas, sinceId)
+
+			listaTweets = retrieveTweets(listaMedicinas)
+
+	# En caso contrario, se buscan tweets para cargar la base de datos
+	else:
+		classifier.listarTweets(listaMedicinas)
+		listaTweets = retrieveTweets(listaMedicinas)
+
+	medEncontrada = True
+	return (listaTweets, medEncontrada)
+
 #----- VIEW CLASSES -----#
 
 # Create your views here.
@@ -95,6 +137,16 @@ class TweetViewSet(viewsets.ReadOnlyModelViewSet):
 
 	#@action(detail=True)
 	def list(self, request, pk=None):
-		queryset = Tweet.objects.all()
+		medicina = request.GET.get('med', None)
+
+		if medicina:
+			queryset, encontrada = buscaTwitter(medicina)
+
+			if not encontrada:
+				queryset = Tweet.objects.none()
+
+		else:
+			queryset = Tweet.objects.all()
+
 		serializer = TweetSerializer(queryset, many=True)
 		return Response(serializer.data)

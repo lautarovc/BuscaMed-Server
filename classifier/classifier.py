@@ -42,6 +42,10 @@ class Tweet:	#Tweet class for quicker and easier manipulation
 	def set_cluster(self, cluster):	#After classifying, they also have the cluster they belong to
 		self.cluster = cluster
 
+	def get_id(self):
+		tweetId = self.url.split("/")[-1]
+		return int(tweetId)
+
 def tweepy_auth():	#To initialize streaming api
 	consumer_keys, consumer_secret, access_token, access_secret = get_tokens()
 	auth = tp.OAuthHandler(consumer_keys, consumer_secret)
@@ -80,7 +84,7 @@ def classify(raw_tweet):	#Takes a raw tweet directly from streaming, cleans it a
 #	mS = tp.Stream(auth = api.auth, listener = mSL)
 #	mS.filter(track = medicines_list)	#Start the streaming filtering with medicines list
 
-def start_scrapping():	#Scrapping tweets, idea is do this about twice per day perhaps
+def batchClassify():	#Scrapping tweets, idea is do this about twice per day perhaps
 	api = tweepy_auth()	#First initialize api
 	medCount = 0
 	for i in medicines_list:	#Then, do a query for each different medicine
@@ -114,3 +118,39 @@ def start_scrapping():	#Scrapping tweets, idea is do this about twice per day pe
 			# 		new_tweet.save()
 			# 	except:
 			# 		continue
+
+
+#----- VERSION 2.0 -----#
+
+# Funcion que busca una lista de medicinas en Twitter
+def listarTweets(medicine_list, from_id=None):
+	api = tweepy_auth()
+	medCount = 0 
+	classified_tweets = []
+	for i in medicine_list:	#Then, do a query for each different medicine
+		
+		medCount += 1
+		print("\nMedicine "+str(medCount)+"/"+str(len(medicine_list)))
+		if from_id:
+			found_tweets = api.search(q = i.nombre + "-filter:retweets", lang = "es", since_id=from_id)	#Get the list of tweets
+		else:
+			found_tweets = api.search(q = i.nombre + "-filter:retweets", lang = "es")	#Get the list of tweets
+
+		tweetCount = 0
+		for j in found_tweets:	#Then classify all of the found tweets
+
+			tweetCount += 1
+			percent = (tweetCount * 100)/len(found_tweets)
+			sys.stdout.flush()
+			sys.stdout.write("\rProgress: "+str(percent)+"%")
+
+			processed_tweet = (classify(j))
+			if processed_tweet.cluster == 1:		#After they're classified, sort them out and throw them into the database
+				found_medicine = models.Medicina.objects.filter(nombre = processed_tweet.medicines[0].upper())[0]
+				new_tweet = models.Tweet(link = processed_tweet.url, clasificacion = "oferta", medicina = found_medicine)
+				
+				try:
+					new_tweet.save()
+					classified_tweets.append(new_tweet)
+				except:
+					continue

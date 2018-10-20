@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from classifier import batchClassifier
+from classifier import classifier
 from datetime import datetime
 
 class Command(BaseCommand):
@@ -8,7 +8,7 @@ class Command(BaseCommand):
 	def handle(self, *args, **options):
 		startTime = datetime.now()
 
-		batchClassifier.start_scrapping()
+		batchClassifier.batchClassify()
 
 		endTime = datetime.now() - startTime
 
