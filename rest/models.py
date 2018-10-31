@@ -26,6 +26,13 @@ class Tweet(models.Model):
 	link = models.TextField(verbose_name=('Link'),unique=True)
 	clasificacion = models.TextField(verbose_name=('Clasificacion'))
 	medicina = models.ForeignKey(Medicina, related_name='Medicina', null=True, on_delete=models.CASCADE)
+	fecha = models.DateTimeField(auto_now_add=True, blank=True)
+
 
 	def __str__(self):
-		return "Link: %s Clasificacion: %s Medicina: %s" %(self.link,self.clasificacion,self.medicina)		
+		return "Link: %s Clasificacion: %s Medicina: %s" %(self.link,self.clasificacion,self.medicina)
+
+	def getId(self):
+		tweetId = self.link.split("/")[-1]
+
+		return int(tweetId)
