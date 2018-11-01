@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 from .serializers import TweetSerializer, MedicinaSerializer, ActivoSerializer
 from .models import *
 from classifier import classifier
+from webcrawler.webCrawlerFarmarket import webCrawler as webCrawlerFarmarket
 
 
 from django.contrib.auth.models import User, Group
@@ -150,3 +151,16 @@ class TweetViewSet(viewsets.ReadOnlyModelViewSet):
 
 		serializer = TweetSerializer(queryset, many=True)
 		return Response(serializer.data)
+
+class FarmarketWebViewSet(viewsets.ViewSet):
+
+	def list(self, request):
+		medicina = request.GET.get('med', None)
+
+		if medicina:
+			queryset = webCrawlerFarmarket('https://www.farmarket.com.ve/sitio/index.php/resultados-busqueda-productos/',medicina)
+
+		else:
+			queryset = []
+
+		return Response(queryset)
