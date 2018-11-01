@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest',
     'classifier',
+    'webcrawler',
     'rest_framework'
 ]
 

@@ -20,6 +20,7 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'tweets', views.TweetViewSet)
+router.register(r'webcrawler', views.FarmarketWebViewSet, base_name='webcrawler')
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
