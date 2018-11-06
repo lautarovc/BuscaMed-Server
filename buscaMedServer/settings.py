@@ -37,11 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'rest',
     'classifier',
     'webcrawler',
     'farmabot',
-    'rest_framework'
+    'stores',
 ]
 
 MIDDLEWARE = [
@@ -121,6 +122,9 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+MEDIA_ROOT = '/home/yari/Desktop/Documents/USB/Miniproyecto/BuscaMed-Server/stores/files/'
 
 
 # Static files (CSS, JavaScript, Images)

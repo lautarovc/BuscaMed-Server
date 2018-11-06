@@ -31,7 +31,7 @@ quitarComunes = ["CALCIO","ARANDA","OTAN","HIERRO","DUPLA","BICARBONATO","DIP",
 
 
 
-# Función que verifica que la medicina buscada por el usuario se encuentra en la base de datos
+# Función que verifica que la medicina buscada por el usuario se encuentra en la base de datos, y devuelve equivalentes
 def searchDataBase(medName):
 	searchQuery = medName.upper()
 	
