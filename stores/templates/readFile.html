@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lectura de archivo</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	{% load static %}
+	<script src="{% static 'js/jquery.csv.js'%}"></script>
+</head>
+<body>
+
+	<p>
+		<b>Seleccione un archivo .csv para cargar: </b>
+	</p>
+	<input type="file" id="fileName" name="fileName">
+	<button onclick="readCSV()">Cargar archivo</button>
+
+	<form method="post" action="">
+		{% csrf_token %}
+		<input type="hidden" id="csv" name="csv">
+		<button type="submit" id="formButton" style="display: none;"></button>
+	</form>
+
+	<script>
+		function readCSV() {
+			var file = document.getElementById("fileName").files[0];
+			var reader = new FileReader();
+      		reader.readAsText(file);
+      		reader.onload = function(event){
+	        	var csv = event.target.result;
+	        	var data = $.csv.toObjects(csv); 
+	        	var dataString = JSON.stringify(data);
+	  			console.log(dataString);
+	  			document.getElementById("csv").value = dataString;
+	  			$('#formButton').click();
+        	}
+        	reader.onerror = function(){ alert('Unable to read ' + file.fileName); };
+  		}
+	</script>
+
+</body>
+</html>

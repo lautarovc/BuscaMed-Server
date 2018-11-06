@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest',
     'classifier',
     'webcrawler',
-    'rest_framework'
+    'rest_framework',
+    'stores'
 ]
 
 MIDDLEWARE = [
@@ -120,6 +121,9 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+MEDIA_ROOT = '/home/yari/Desktop/Documents/USB/Miniproyecto/BuscaMed-Server/stores/files/'
 
 
 # Static files (CSS, JavaScript, Images)
