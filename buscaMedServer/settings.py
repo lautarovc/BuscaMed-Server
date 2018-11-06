@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest',
     'classifier',
     'webcrawler',
+    'farmabot',
     'rest_framework'
 ]
 
