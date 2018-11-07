@@ -69,7 +69,7 @@ def retrieveTweets(listaMedicinas):
 		listaTweets = listaTweets | tweets
 	return listaTweets.order_by('-fecha')
 
-# Funcion que se encarga de la busqueda de los tweets
+# Funcion que se encarga de la busqueda de los tweets en la BD
 def buscaTweets(medName):
 
 	# Se agregó lo de problema para casos en los que la persona escribia una medicina que no existia
@@ -150,6 +150,7 @@ class TweetViewSet(viewsets.ReadOnlyModelViewSet):
 			queryset = Tweet.objects.all()
 
 		serializer = TweetSerializer(queryset, many=True)
+
 		return Response(serializer.data)
 
 class FarmarketWebViewSet(viewsets.ViewSet):
