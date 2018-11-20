@@ -49,15 +49,12 @@ def searchDataBase(medName):
 				activo = Activo.objects.get(componente=searchQuery)
 				medicina = Medicina.objects.filter(activo=activo).order_by('nombre')
 			except:
-				messages.add_message(medName, messages.ERROR, 'Disculpe, \'' + medName +'\' no es reconocido en nuestra base de datos.')
-				template = loader.get_template('rest/index.html')				
-				context = {'messages':messages}
+			
 				return (None,Medicina.objects.none(),True)
 
 		return (activo,medicina,False)
 	
 	else:
-		messages.add_message(medName, messages.ERROR, 'Disculpe, no puede dejar este campo vacío.')
 		
 		return (None,None,True)
 

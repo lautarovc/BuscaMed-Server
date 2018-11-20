@@ -60,6 +60,10 @@
 	        	else if (firstLine.includes(",")) {
 	        		var options = {"separator" : ","};
 	        	}
+	        	else {
+	        		alert("Error: check csv separator");
+	        		return;
+	        	}
 
 	        	// Convertimos a arreglo de diccionarios
 	        	var data = $.csv.toObjects(csv, options); 
@@ -75,6 +79,8 @@
 
 	        	// En caso contrario, convertimos a json string y enviamos
 	        	var dataString = JSON.stringify(data);
+
+	        	console.log(dataString);
 
 	  			document.getElementById("csv").value = dataString;
 	  			$('#formButton').click();

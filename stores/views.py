@@ -21,28 +21,34 @@ class StoresView(TemplateView):
 		productosViejos = ProductosPorTienda.objects.filter(tienda=request.user).delete()
 
 		for row in data:
-			componenteMed = row['activo']
+			componenteMed = row['activo'].upper()
 			activo = Activo.objects.filter(componente=componenteMed)
 
 			if activo.count() == 0:
 				activo = Activo.objects.create(componente=componenteMed)
+			else:
+				activo = activo[0]
 
 
-			nombreMed = row['medicina']
+			nombreMed = row['medicina'].upper()
 			medicina = Medicina.objects.filter(nombre=nombreMed)
 
 			if medicina.count() == 0:
 				medicina = Medicina.objects.create(nombre=nombreMed, activo=activo)
+			else:
+				medicina = medicina[0]
 
 
-			presentacionMed = row['presentacion']
+			presentacionMed = row['presentacion'].upper()
 			presentacion = Presentacion.objects.filter(presentacion=presentacionMed, medicina=medicina)
 
 			if presentacion.count() == 0:
 				presentacion = Presentacion.objects.create(presentacion=presentacionMed, medicina=medicina)
+			else:
+				presentacion = presentacion[0]
 
 
-			disponibilidadMed = row['disponibilidad']
-			productosPorTienda = ProductosPorTienda.objects.create(medicina=presentacion, tienda=request.user, disponibilidad=disponibilidadMed) 
+			disponibilidadMed = int(row['disponibilidad'])
+			productosPorTienda = ProductosPorTienda.objects.create(producto=presentacion, tienda=request.user, disponibilidad=disponibilidadMed) 
 
 		return render(request, 'readFile.html', {})

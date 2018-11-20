@@ -21,13 +21,13 @@ class Presentacion(models.Model):
 	medicina = models.ForeignKey(Medicina, related_name='formato',null=True, on_delete=models.CASCADE)
 
 	def __str__(self):
-		return "%s" % (self.presentacion)
+		return "%s %s" % (self.medicina,self.presentacion)
 
 class ProductosPorTienda(models.Model):
-	medicina = models.ForeignKey(Presentacion, related_name='med', null=True, on_delete=models.CASCADE)
+	producto = models.ForeignKey(Presentacion, related_name='med', null=True, on_delete=models.CASCADE)
 	tienda = models.ForeignKey(User, related_name='tienda', null=True, on_delete=models.CASCADE)
 	disponibilidad = models.IntegerField(verbose_name=('Disponibilidad'))
 	fechaDeIngreso = models.DateTimeField(verbose_name=('Fecha de actualizacion'), auto_now_add=True, blank=True)
 
 	def __str__(self):
-		return "Producto: %s Tienda: %s Disponibilidad: %s Fecha: %s" %(self.medicina, self.tienda, self.disponibilidad, self.fechaDeIngreso)
+		return "Producto: %s Tienda: %s Disponibilidad: %s Fecha: %s" %(self.producto, self.tienda, self.disponibilidad, self.fechaDeIngreso.date())
