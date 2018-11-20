@@ -1,1 +1,1 @@
-web: gunicorn buscamed-server.wsgi
+web: gunicorn buscaMedServer.wsgi --log-file -
