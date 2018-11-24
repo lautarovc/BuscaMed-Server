@@ -1,6 +1,6 @@
-import requests 
-from bs4 import BeautifulSoup 
-import re 
+import requests
+from bs4 import BeautifulSoup
+import re
 
 def webCrawler(url, medicine):
 	sourceCode = requests.post(url, data = {'txtProducto' : medicine})
@@ -18,7 +18,7 @@ def collectInfo(tds):
 	# Estructura products: {'producto' : nombre, 'disponibles' : xxx}
 	
 	i = 3 
-
+	
 	totalList = []       
 	productsByStore = []
 	
