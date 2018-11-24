@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from time import time 
 
+
 # Create your models here.
 class Activo(models.Model):
 	componente = models.TextField(verbose_name=('Componente activo'),unique=True)
