@@ -61,7 +61,7 @@ ROOT_URLCONF = 'buscaMedServer.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -141,6 +141,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [],
     'DEFAULT_PERMISSION_CLASSES': []
 }
+
+LOGIN_REDIRECT_URL = '/'     #cambiar 
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
