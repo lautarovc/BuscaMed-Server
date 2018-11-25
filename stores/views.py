@@ -11,7 +11,7 @@ class StoresView(TemplateView):
 		if not request.user.is_authenticated:
 			return redirect("/store/login");
 
-		return render(request, 'readFile.html', {})
+		return render(request, 'readFile.html', {'success': -1})
 		
 	def post(self, request):
 		if not request.user.is_authenticated:
@@ -20,7 +20,7 @@ class StoresView(TemplateView):
 		data = request.POST.get('csv')
 
 		if data == None:
-			return render(request, 'readFile.html', {})
+			return render(request, 'readFile.html', {'success': 0})
 
 		data = json.loads(data)
 
@@ -57,4 +57,4 @@ class StoresView(TemplateView):
 			disponibilidadMed = int(row['disponibilidad'])
 			productosPorTienda = ProductosPorTienda.objects.create(producto=presentacion, tienda=request.user, disponibilidad=disponibilidadMed) 
 
-		return render(request, 'readFile.html', {})
+		return render(request, 'readFile.html', {'success': 1})
