@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from .models import *
 import json 
@@ -8,9 +8,15 @@ import json
 class StoresView(TemplateView):
 
 	def get(self, request):
+		if not request.user.is_authenticated:
+			return redirect("/store/login");
+
 		return render(request, 'readFile.html', {})
 		
 	def post(self, request):
+		if not request.user.is_authenticated:
+			return redirect("/store/login");
+
 		data = request.POST.get('csv')
 
 		if data == None:

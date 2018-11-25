@@ -1,89 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
- 	<title>Avanzometro</title>
-     	{% load static %}
-    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'css/bootstrap-theme.css' %}">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  {% load static %}
 
-</head>
-<body>
-<nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">Avanzómetro</a>
-        </div>
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Inicio</a></li>
-        </ul>
-      </div>
-    </nav>
-<div class="container">
-   <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-      <div class="panel panel-login">
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-lg-12">
-              {% if form.errors %}
-                  <p style="color: red">Tu correo y contraseña no coincide. Vuelve a intentar.</p>
-                {% endif %}
-              <form id="login-form" method="post" action="."" role="form" style="display: block;">
-                {% csrf_token %}
-                <h2><b>Ingresar</b></h2>
-                  <div class="form-group">
-                  {% csrf_token %}
-                    <input type="hidden" name="next" value="{{ next }}" />
-                    {% for field in form %}
-                      <p>
-                        {{ field.label_tag }}<br>
-                        {{ field }}<br>
-                        {% for error in field.errors %}
-                          <p style="color: red">{{ error }}</p>
-                        {% endfor %}
-                        {% if field.help_text %}
-                          <p><small style="color: grey">{{ field.help_text }}</small></p>
-                        {% endif %}
-                      </p>
-                    {% endfor %}
-                  </div>
-                 
-                  <div class="col-xs-6 form-group pull-left checkbox">
-                    <input id="checkbox" type="checkbox" name="remember" checked>
-                    <label for="checkbox">Recordarme</label>   
-                  </div>
-                  <div class="col-xs-6 form-group pull-right">     
-                        <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Ingresar">
-                        <input type="hidden" name="next" value="/" />
-                  </div>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" id="bootstrap-css">
+  <link rel="stylesheet" href="{% static 'css/login.css'%}">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <title>Buscamed - Inicia Sesión</title>
 
-              </form>
-              
-            </div>
+  </head>
+  {% block content %}
+  <body id="LoginForm">
+
+    <div class="container">
+      <h1 class="form-heading">Buscamed Venezuela</h1>
+      <div class="login-form">
+        <div class="main-div">
+          <div class="panel">
+            <h2>Ingreso Farmacias</h2>
+            <p>Por favor introduzca el correo inscrito y contraseña</p>
           </div>
-        </div>
-        <div class="panel-heading">
-          <div class="row">
-            <div class="col-xs-6 tabs">
-              <a href="/login/" class="active" id="login-form-link"><div class="login">Ingreso</div></a>
+          <form id="Login">
+          {% csrf_token %}
+
+            <div class="form-group">
+              <input type="email" class="form-control" id="inputEmail" placeholder="Email Address">
             </div>
-            <div class="col-xs-6 tabs">
-              <a href="/signup/" id="register-form-link"><div class="register">Registro</div></a>
+
+            <div class="form-group">
+              <input type="password" class="form-control" id="inputPassword" placeholder="Password">
             </div>
-          </div>
+
+            <div class="forgot">
+              <a href="reset.html">Olvidó su contraseña?</a></br>
+              <a href="contact.html">Registrarse</a>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+
+          </form>
         </div>
+        <p class="botto-text"> Designed by Sunil Rajput</p>
       </div>
     </div>
-  </div>
-</div>
-</body>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<link type="text/javascript" href="{% static 'js/bootstrap.min.js' %}">
-	<link type="text/javascript" href="{% static 'js/npm.js' %}">
-  	<link type="text/javascript" href="{% static 'js/main.js' %}">
+
+  </body>
+    {% endblock content %}
+
   
 </html>
