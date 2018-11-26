@@ -172,8 +172,8 @@ def retrieveInventory(medName):
 	return productos
 
 #----- VIEW CLASSES -----#
-
 # Create your views here.
+
 class TweetViewSet(viewsets.ReadOnlyModelViewSet):
 
 	queryset = Tweet.objects.all()
