@@ -8,7 +8,7 @@ class Command(BaseCommand):
 	def handle(self, *args, **options):
 		startTime = datetime.now()
 
-		batchClassifier.batchClassify()
+		classifier.batchClassify()
 
 		endTime = datetime.now() - startTime
 

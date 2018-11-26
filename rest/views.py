@@ -1,19 +1,22 @@
-from django.shortcuts import render
+from datetime import datetime, timezone
+
+from django.conf import settings
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib import messages
-from django.shortcuts import redirect
 from rest_framework import viewsets
 from rest_framework.response import Response
-from datetime import datetime, timezone
+from django.contrib.auth.models import User, Group
 
+from webcrawler.webCrawlerFarmarket import webCrawler as webCrawlerFarmarket
+from classifier import classifier
+
+import stores.models as store
+import stores.serializers as storeSerializers
 from .serializers import TweetSerializer, MedicinaSerializer, ActivoSerializer
 from .models import *
-from classifier import classifier
-from webcrawler.webCrawlerFarmarket import webCrawler as webCrawlerFarmarket
 
-
-from django.contrib.auth.models import User, Group
 
 
 #----- HELPER FUNCTIONS -----#
@@ -29,7 +32,7 @@ quitarComunes = ["CALCIO","ARANDA","OTAN","HIERRO","DUPLA","BICARBONATO","DIP",
 					"TARON", "CAMPAL","AZA","YAZ","KIR","CIFRAN","MIRENA","ENO","CLARIX",
 					"PINAZO","ARNOL"]
 
-
+#----- TWITTER FUNCTIONS -----#
 
 # Función que verifica que la medicina buscada por el usuario se encuentra en la base de datos, y devuelve equivalentes
 def searchDataBase(medName):
@@ -85,7 +88,6 @@ def buscaTweets(medName):
 	medEncontrada = True
 	return (listaTweets, medEncontrada)
 
-
 # Funcion para buscar tweets directamente en Twitter
 def buscaTwitter(medName):
 	# Se agregó lo de problema para casos en los que la persona escribia una medicina que no existia
@@ -113,21 +115,66 @@ def buscaTwitter(medName):
 		# En caso contrario, se buscan nuevos tweets a partir del id del tweet mas reciente
 		else:
 			sinceId = dbTweets[0].getId()
-			classifier.listarTweets(listaMedicinas, sinceId)
+			#classifier.listarTweets(listaMedicinas, sinceId)
+			classifier.threadingTweets(settings.TWITTER_AUTH, listaMedicinas, sinceId)
 
 			listaTweets = retrieveTweets(listaMedicinas)
 
 	# En caso contrario, se buscan tweets para cargar la base de datos
 	else:
-		classifier.listarTweets(listaMedicinas)
+		#classifier.listarTweets(listaMedicinas)
+		classifier.threadingTweets(settings.TWITTER_AUTH, listaMedicinas)
+
 		listaTweets = retrieveTweets(listaMedicinas)
 
 	medEncontrada = True
 	return (listaTweets, medEncontrada)
 
-#----- VIEW CLASSES -----#
+#----- STORES FUNCTIONS -----#
 
+def getComponent(medName):
+	medName = medName.upper()
+	
+	if medName:
+		# Revisamos si nos pidieron un componente activo
+		activo = store.Activo.objects.filter(componente=medName)
+
+		# Si no, revisamos si nos pidieron una medicina
+		if len(activo) == 0:
+			medicina = store.Medicina.objects.filter(nombre=medName)
+
+			# Si no es ninguno, no es nada
+			if len(medicina) == 0:
+				return store.Activo.objects.none()
+
+			# Obtenemos componente activo de la medicina
+			activo = store.Activo.objects.filter(componente=medicina[0].activo.componente)
+
+		return activo
+
+	else:
+		return store.Activo.objects.none()
+
+def retrieveInventory(medName):
+
+	if medName:
+		activo = getComponent(medName)
+
+		# Si no se consiguio el componente activo
+		if len(activo) == 0:
+			return store.ProductosPorTienda.objects.none()
+
+
+		productos = store.ProductosPorTienda.objects.filter(producto__medicina__activo=activo[0])
+
+	else:
+		productos = store.ProductosPorTienda.objects.none()
+
+	return productos
+
+#----- VIEW CLASSES -----#
 # Create your views here.
+
 class TweetViewSet(viewsets.ReadOnlyModelViewSet):
 
 	queryset = Tweet.objects.all()
@@ -150,7 +197,25 @@ class TweetViewSet(viewsets.ReadOnlyModelViewSet):
 
 		return Response(serializer.data)
 
-class FarmarketWebViewSet(viewsets.ViewSet):
+class StoresViewSet(viewsets.ReadOnlyModelViewSet):
+
+	queryset = store.ProductosPorTienda.objects.all()
+	serializer_class = storeSerializers.InventorySerializer
+
+	#@action(detail=True)
+	def list(self, request, pk=None):
+		medicina = request.GET.get('med', None)
+		if medicina:
+			queryset = retrieveInventory(medicina)
+
+		else:
+			queryset = store.ProductosPorTienda.objects.none()
+
+		serializer = storeSerializers.InventorySerializer(queryset, many=True)
+
+		return Response(serializer.data)
+
+class WebViewSet(viewsets.ViewSet):
 
 	def list(self, request):
 		medicina = request.GET.get('med', None)
