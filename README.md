@@ -10,7 +10,7 @@
 
 `postgres=#`CREATE DATABASE buscamedserver;
 
-`postgres=#`CREATE USER buscameduser WITH PASSWORD '1234';
+`postgres=#`CREATE USER buscameduser WITH PASSWORD <CONTRASEÑA PREDETERMINADA>;
 
 `postgres=#`ALTER ROLE buscameduser SET client_encoding TO 'utf8';
 
