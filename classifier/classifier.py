@@ -11,6 +11,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.externals import joblib
 from rest import models
 from classifier.twitterConfig import get_tokens
+import threading
 
 
 medicines = pd.read_csv("data/baseDatos-completa.csv", header=0, delimiter=",", encoding = "utf-8")  #Obtaining the medicines names from the file
@@ -46,10 +47,9 @@ class Tweet:	#Tweet class for quicker and easier manipulation
 		tweetId = self.url.split("/")[-1]
 		return int(tweetId)
 
-def tweepy_auth():	#To initialize streaming api
-	consumer_keys, consumer_secret, access_token, access_secret = get_tokens()
-	auth = tp.OAuthHandler(consumer_keys, consumer_secret)
-	auth.set_access_token(access_token, access_secret)
+def tweepy_auth(keys):	#To initialize streaming api
+	auth = tp.OAuthHandler(keys['consumer_key'], keys['consumer_secret'])
+	auth.set_access_token(keys['access_token'], keys['access_secret'])
 	api = tp.API(auth, wait_on_rate_limit = True, retry_count = 100, retry_delay = 10)
 	return api
 
@@ -85,7 +85,7 @@ def classify(raw_tweet):	#Takes a raw tweet directly from streaming, cleans it a
 #	mS.filter(track = medicines_list)	#Start the streaming filtering with medicines list
 
 def batchClassify():	#Scrapping tweets, idea is do this about twice per day perhaps
-	api = tweepy_auth()	#First initialize api
+	api = tweepy_auth(get_tokens())	#First initialize api
 	medCount = 0
 	for i in medicines_list:	#Then, do a query for each different medicine
 		#print("Looking tweets with medicine " + i)	#This line for control purposes only
@@ -124,7 +124,7 @@ def batchClassify():	#Scrapping tweets, idea is do this about twice per day perh
 
 # Funcion que busca una lista de medicinas en Twitter
 def listarTweets(medicine_list, from_id=None):
-	api = tweepy_auth()
+	api = tweepy_auth(get_tokens())
 	medCount = 0 
 	classified_tweets = []
 	for i in medicine_list:	#Then, do a query for each different medicine
@@ -154,3 +154,73 @@ def listarTweets(medicine_list, from_id=None):
 					classified_tweets.append(new_tweet)
 				except:
 					continue
+
+
+#----- VERSION 2.1 -----#
+
+# Funcion que divide la lista de medicinas y busca en hilos de API keys distintos
+def threadingTweets(keys, medicine_list, from_id=None):
+
+	# Dividimos la lista en sublistas
+	listSize = len(medicine_list)//len(keys)
+	sizeMultiple = len(medicine_list)%len(keys) > 0
+
+	fragments = [medicine_list[i:i+listSize] for i in range(0, len(medicine_list), listSize)]
+
+	if sizeMultiple:
+		fragments = fragments[:-2]+[fragments[-2]+fragments[-1]]
+
+	assert(len(fragments)==len(keys))
+
+	threads = []
+	for i in range(len(keys)):
+		thread = ListarThread(keys[i], fragments[i], from_id)
+		thread.start()
+		print("Twitter thread #"+str(i))
+		threads.append(thread)
+
+	for thread in threads:
+		thread.join()
+
+
+# Hilo que busca una lista de medicinas en Twitter
+class ListarThread(threading.Thread):
+	def __init__(self, keys, medicine_list, from_id):
+		threading.Thread.__init__(self)
+		self.keys = keys
+		self.medicine_list = medicine_list
+		self.from_id = from_id
+
+	def run(self):
+		api = tweepy_auth(self.keys)
+		medCount = 0 
+		classified_tweets = []
+		for i in self.medicine_list:	#Then, do a query for each different medicine
+			
+			medCount += 1
+			print("\nMedicine "+str(medCount)+"/"+str(len(self.medicine_list)))
+			if self.from_id:
+				found_tweets = api.search(q = i.nombre + "-filter:retweets", lang = "es", since_id=self.from_id)	#Get the list of tweets
+			else:
+				found_tweets = api.search(q = i.nombre + "-filter:retweets", lang = "es")	#Get the list of tweets
+
+			tweetCount = 0
+			for j in found_tweets:	#Then classify all of the found tweets
+
+				tweetCount += 1
+				percent = (tweetCount * 100)/len(found_tweets)
+				sys.stdout.flush()
+				sys.stdout.write("\rProgress: "+str(percent)+"%")
+
+				processed_tweet = (classify(j))
+				if processed_tweet.cluster == 1:		#After they're classified, sort them out and throw them into the database
+					found_medicine = models.Medicina.objects.filter(nombre = processed_tweet.medicines[0].upper())[0]
+					new_tweet = models.Tweet(link = processed_tweet.url, clasificacion = "oferta", medicina = found_medicine)
+					
+					try:
+						new_tweet.save()
+						classified_tweets.append(new_tweet)
+					except:
+						continue
+
+

@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.conf import settings
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib import messages
-from django.shortcuts import redirect
 from rest_framework import viewsets
 from rest_framework.response import Response
 from datetime import datetime, timezone
@@ -14,7 +14,6 @@ from .serializers import TweetSerializer, MedicinaSerializer, ActivoSerializer
 from .models import *
 from classifier import classifier
 from webcrawler.webCrawlerFarmarket import webCrawler as webCrawlerFarmarket
-
 
 from django.contrib.auth.models import User, Group
 
@@ -115,13 +114,16 @@ def buscaTwitter(medName):
 		# En caso contrario, se buscan nuevos tweets a partir del id del tweet mas reciente
 		else:
 			sinceId = dbTweets[0].getId()
-			classifier.listarTweets(listaMedicinas, sinceId)
+			#classifier.listarTweets(listaMedicinas, sinceId)
+			classifier.threadingTweets(settings.TWITTER_AUTH, listaMedicinas, sinceId)
 
 			listaTweets = retrieveTweets(listaMedicinas)
 
 	# En caso contrario, se buscan tweets para cargar la base de datos
 	else:
-		classifier.listarTweets(listaMedicinas)
+		#classifier.listarTweets(listaMedicinas)
+		classifier.threadingTweets(settings.TWITTER_AUTH, listaMedicinas)
+
 		listaTweets = retrieveTweets(listaMedicinas)
 
 	medEncontrada = True

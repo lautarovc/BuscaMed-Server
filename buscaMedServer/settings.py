@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
-import os
+import os, json
 import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -146,3 +146,6 @@ LOGIN_REDIRECT_URL = '/'     #cambiar
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+# Twitter auth data
+TWITTER_AUTH = json.loads(os.environ.get('TWITTER_AUTH','[]'))
