@@ -31,6 +31,11 @@
 
 `$`sudo ufw allow 8000
 
+#### Primera Corrida:
+##### Nota: Es recomendable usar un virtual environment
+
+`$`pip install -r requirements.txt
+`$`python manage.py loadmeds
 `$`python manage.py runserver 0.0.0.0:8000
 
 **Escribir en un browser 127.0.0.1:8000**
