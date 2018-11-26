@@ -1,7 +1,6 @@
 import pandas as pd
 import tweepy as tp
-import sys
-import re
+import sys, re, threading
 
 from bs4 import BeautifulSoup
 from nltk.corpus import stopwords
@@ -9,9 +8,9 @@ from nltk.stem.snowball import SnowballStemmer
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.externals import joblib
+
 from rest import models
-from classifier.twitterConfig import get_tokens
-import threading
+from django.conf import settings
 
 
 medicines = pd.read_csv("data/baseDatos-completa.csv", header=0, delimiter=",", encoding = "utf-8")  #Obtaining the medicines names from the file
@@ -85,7 +84,7 @@ def classify(raw_tweet):	#Takes a raw tweet directly from streaming, cleans it a
 #	mS.filter(track = medicines_list)	#Start the streaming filtering with medicines list
 
 def batchClassify():	#Scrapping tweets, idea is do this about twice per day perhaps
-	api = tweepy_auth(get_tokens())	#First initialize api
+	api = tweepy_auth(settings.TWITTER_AUTH[0])	#First initialize api
 	medCount = 0
 	for i in medicines_list:	#Then, do a query for each different medicine
 		#print("Looking tweets with medicine " + i)	#This line for control purposes only
@@ -124,7 +123,7 @@ def batchClassify():	#Scrapping tweets, idea is do this about twice per day perh
 
 # Funcion que busca una lista de medicinas en Twitter
 def listarTweets(medicine_list, from_id=None):
-	api = tweepy_auth(get_tokens())
+	api = tweepy_auth(settings.TWITTER_AUTH[0])
 	medCount = 0 
 	classified_tweets = []
 	for i in medicine_list:	#Then, do a query for each different medicine

@@ -1,3 +1,5 @@
+from datetime import datetime, timezone
+
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -5,17 +7,16 @@ from django.template import loader
 from django.contrib import messages
 from rest_framework import viewsets
 from rest_framework.response import Response
-from datetime import datetime, timezone
+from django.contrib.auth.models import User, Group
+
+from webcrawler.webCrawlerFarmarket import webCrawler as webCrawlerFarmarket
+from classifier import classifier
 
 import stores.models as store
 import stores.serializers as storeSerializers
-
 from .serializers import TweetSerializer, MedicinaSerializer, ActivoSerializer
 from .models import *
-from classifier import classifier
-from webcrawler.webCrawlerFarmarket import webCrawler as webCrawlerFarmarket
 
-from django.contrib.auth.models import User, Group
 
 
 #----- HELPER FUNCTIONS -----#
