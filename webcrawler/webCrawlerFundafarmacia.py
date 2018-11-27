@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import re 
 
 def webCrawler(url, medicine):
-	sourceCode = requests.post(url, data = {'txtProducto' : medicine})
+	sourceCode = requests.post(url, data = {'producto' : medicine, 'estado' : '', 'lugar' : ''})
 	plainText = sourceCode.text 
 	soup = BeautifulSoup(plainText, 'html.parser')
 
@@ -14,15 +14,39 @@ def webCrawler(url, medicine):
 	return info
 
 def collectInfo(tds):
+	# Estructura store: {'farmacia': 'Farmarket', 'sede' : nombre, 'productos' : productosPorTienda} 
+	# Estructura products: {'producto' : nombre, 'disponibles' : xxx}
+
 	i = 0
 
-	#while i < len(tds):
-	productRegex = re.split(r">|<", str(tds[i]))
-	print(productRegex)
+	totalList = []       
+	productsByLocation = []
 
+	while i < len(tds):
+		state = re.split(r">|<", str(tds[i+3]))[2]
+		location = re.split(r">|<", str(tds[i+4]))[2]
+		currentlocation = location
+
+		while i < len(tds) and location == currentlocation:
+			productRegex = re.split(r">|<", str(tds[i]))[2].strip()
+			products = {'nombre': productRegex, 'disponibles': 'Si'}
+			productsByLocation.append(products)
+
+			i += 6
+
+			if i < len(tds):
+				currentlocation = re.split(r">|<", str(tds[i+4]))[2]
+
+		store = {'farmacia': 'Fundafarmacia', 'sede' : location +", "+state, 'productos' : productsByLocation}
+
+		totalList.append(store)
+
+		productsByLocation = []
+
+	return totalList
 
 def main():
-	print(webCrawler('http://www.fundafarmacia.com/index.php/productos/', 'atamel'))
+	print(webCrawler('http://www.fundafarmacia.com/consulta/busqueda.php', 'atamel'))
 
 if __name__ == "__main__":
 	main()
