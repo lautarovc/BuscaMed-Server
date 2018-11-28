@@ -6,6 +6,7 @@ from .models import *
 import json 
 
 # Create your views here.
+#----- Pages for Drugstores -----#
 
 class UserLoginView(LoginView):
 	form_class = LoginForm
@@ -32,6 +33,8 @@ class StoresView(TemplateView):
 		productosViejos = ProductosPorTienda.objects.filter(tienda=request.user).delete()
 
 		for row in data:
+			row = {k.upper(): v for k, v in row.items()}
+
 			componenteMed = row['activo'].upper()
 			activo = Activo.objects.filter(componente=componenteMed)
 
@@ -63,3 +66,13 @@ class StoresView(TemplateView):
 			productosPorTienda = ProductosPorTienda.objects.create(producto=presentacion, tienda=request.user, disponibilidad=disponibilidadMed) 
 
 		return render(request, 'readFile.html', {'success': 1})
+
+#----- Pages for Public -----#
+
+class HomeView(TemplateView):
+
+	def get(self, request):
+		return render(request, 'index.html', {})
+
+	def post(self, request):
+		return render(request, 'index.html', {})

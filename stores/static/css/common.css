@@ -19,6 +19,20 @@ body#LoginForm{ background-image:url("https://hdwallsource.com/img/2014/9/blur-2
   padding: 50px 70px 70px 71px;
 }
 
+.multi-div {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 2px;
+  margin: 10px auto 30px;
+  padding: 50px 70px 70px 71px;
+}
+
+.search-div {
+  /*background: #ffffff none repeat scroll 0 0;*/
+  border-radius: 2px;
+  margin: 10px auto 30px;
+  padding: 10px 15px 10px 15px;
+}
+
 .login-form .form-group {
   margin-bottom:10px;
 }
@@ -62,3 +76,19 @@ body#LoginForm{ background-image:url("https://hdwallsource.com/img/2014/9/blur-2
   margin-top: 25px;
 }
 
+
+#searchBox::-webkit-input-placeholder {
+   text-align: center;
+}
+
+#searchBox:-moz-placeholder { /* Firefox 18- */
+   text-align: center;  
+}
+
+#searchBox::-moz-placeholder {  /* Firefox 19+ */
+   text-align: center;  
+}
+
+#searchBox:-ms-input-placeholder {  
+   text-align: center; 
+}

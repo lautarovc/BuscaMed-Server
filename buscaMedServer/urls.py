@@ -17,9 +17,12 @@ from django.contrib import admin
 from django.conf.urls import include, url
 from django.urls import  path
 
+from stores.views import HomeView
+
 
 urlpatterns = [
+    path('', HomeView.as_view(), name='home'),
     url(r'^rest/', include('rest.urls')),
-    url(r'^store/', include('stores.urls')),
+    url(r'^stores/', include('stores.urls')),
     url(r'admin/', admin.site.urls),
 ]
