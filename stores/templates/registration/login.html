@@ -7,18 +7,6 @@
   <link rel="stylesheet" href="{% static 'css/common.css'%}">
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script>
-  $(document).ready(function(){
-    $("#forgetPassword").click(function(){
-        $("#secretMessage").toggle();
-    });
-
-    $("#registrate").click(function(){
-        $("#secretMessage").toggle();
-    });
-  });
-  </script>
-
   <title>Buscamed - Inicia Sesión</title>
 
   </head>
@@ -46,7 +34,7 @@
 
             <div class="forgot">
               <a href="#" id="forgetPassword">Olvidó su contraseña?</a></br>
-              <a href="#" id="registrate">Registrarse</a>
+              <a href="#" id="signUp">Registrarse</a>
               <p id="secretMessage">Contáctanos a través de buscamedvzla@gmail.com</p>
             </div>
 
@@ -57,6 +45,19 @@
         <p class="botto-text"> Designed by Sunil Rajput</p>
       </div>
     </div>
+
+  <script>
+    $(document).ready(function(){
+      $("#forgetPassword").click(function(){
+          $("#secretMessage").toggle();
+      });
+
+      $("#signUp").click(function(){
+          $("#secretMessage").toggle();
+      });
+    });
+  </script>
+
 
   </body>
     {% endblock content %}
