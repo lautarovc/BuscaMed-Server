@@ -33,7 +33,7 @@ class StoresView(TemplateView):
 		productosViejos = ProductosPorTienda.objects.filter(tienda=request.user).delete()
 
 		for row in data:
-			row = {k.upper(): v for k, v in row.items()}
+			row = {k.lower(): v for k, v in row.items()}
 
 			componenteMed = row['activo'].upper()
 			activo = Activo.objects.filter(componente=componenteMed)
