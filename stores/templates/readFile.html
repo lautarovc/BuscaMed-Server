@@ -14,12 +14,16 @@
 	<!-- file upload and toastr js -->
 	<link href="{% static 'fileuploads/css/dropify.min.css' %}" rel="stylesheet" type="text/css" />
 	<script src="{% static 'fileuploads/js/dropify.js' %}"></script>
+
 </head>
 {% block content %}
 <body id="LoginForm">
 
 <div class="container">
-  <h1 class="form-heading">Buscamed Venezuela</h1>
+  <div class="navigate">
+    <h1 class="form-heading">Buscamed Venezuela</h1>
+    <a href="{% url home %}" id="logoutButton">Cerrar sesión</a>
+  </div>
   <div class="login-form">
     <div class="main-div">
       <div class="panel">
@@ -38,7 +42,8 @@
 
       </form>
 	  <div class="forgot">
-	    <a href="reset.html">Instrucciones</a>
+	    <a href="#" id="instructions">Instrucciones</a>
+      <p id="secretMessage">Debe subir un archivo .csv que tenga las siguientes columnas: activo, medicina, presentacion y disponibilidad. Puede contener otras columnas, pero las anteriores deben aparecer con dichos nombres.</p>
 	  </div>
 
 	  <button onclick="readCSV()" class="btn btn-primary">Cargar archivo</button>
@@ -73,6 +78,15 @@
             'fileSize': 'The file size is too big (1M max).'
         }
     });
+</script>
+
+<!-- toggle script -->
+<script>
+  $(document).ready(function(){
+    $("#instructions").click(function(){
+      $("#secretMessage").toggle();
+    });
+  });
 </script>
 
 </body>
