@@ -15,13 +15,13 @@ class StoresView(TemplateView):
 
 	def get(self, request):
 		if not request.user.is_authenticated:
-			return redirect("/store/login");
+			return redirect("/stores/login");
 
 		return render(request, 'readFile.html', {'success': -1})
 		
 	def post(self, request):
 		if not request.user.is_authenticated:
-			return redirect("/store/login");
+			return redirect("/stores/login");
 
 		data = request.POST.get('csv')
 

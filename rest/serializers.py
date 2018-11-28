@@ -17,8 +17,12 @@ class MedicinaSerializer(serializers.ModelSerializer):
         
 class TweetSerializer(serializers.ModelSerializer):
 	medicina = MedicinaSerializer()
+	id = serializers.SerializerMethodField()
 
 	class Meta:
 		model = Tweet
-		fields = ('link', 'medicina')
-		read_only_fields = ('link', 'medicina')
+		fields = ('id','link', 'medicina')
+		read_only_fields = ('id','link', 'medicina')
+
+	def get_id(self, obj):
+		return obj.getId()

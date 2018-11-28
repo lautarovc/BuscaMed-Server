@@ -76,6 +76,10 @@ body#LoginForm{ background-image:url("https://hdwallsource.com/img/2014/9/blur-2
   margin-top: 25px;
 }
 
+#results {
+  display: none;
+}
+
 #searchBox::-webkit-input-placeholder {
    text-align: center;
 }
@@ -100,5 +104,5 @@ body#LoginForm{ background-image:url("https://hdwallsource.com/img/2014/9/blur-2
 }
 
 .navigate {
-  height: 27px;
+  height: 36px;
 }

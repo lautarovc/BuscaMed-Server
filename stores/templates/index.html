@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Lectura de archivo</title>
+	<title>Buscamed</title>
 	{% load static %}
-  <link href="{% static 'css/common.css' %}" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" id="bootstrap-css">
-	
+	<link href="{% static 'css/common.css' %}" rel="stylesheet" type="text/css" />
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 </head>
 {% block content %}
 <body id="LoginForm">
 
 <div class="container">
-  <h1 class="form-heading">Buscamed Venezuela</h1>
+  <div class="navigate">
+    <a href="{% url 'home' %}"><h1 class="form-heading">Buscamed Venezuela</h1></a>
+    <a href="{% url 'login' %}" id="logoutButton">Iniciar sesión</a>
+  </div>
 
   <div class="row">
    <!--  <div class="col-md-4"></div> -->
@@ -34,35 +36,89 @@
 
   </div>
 
-  <div class="row">
-    <div class="col-md-4"></div>
-
-
+  <div class="row" id="results">
     <div class="col-md-4">
       <div class="multi-div">
-        <div class="panel">
-          <h2>Ingreso Inventario</h2>
-          <p>Por favor seleccione el archivo .csv con el inventario a cargar:</p>
-        </div>
-    	  <div class="forgot">
-    	    <a href="reset.html">Instrucciones</a>
-    	  </div>
+        <div class="panel" id="tweetBox">
+          <h2>Tweets</h2>
 
-    	  <button onclick="" class="btn btn-primary">Cargar archivo</button>
+        </div>
       </div>
     </div>
 
 
-    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <div class="multi-div">
+        <div class="panel" id="tweetBox">
+          <h2>Web</h2>
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-4">
+      <div class="multi-div">
+        <div class="panel" id="tweetBox">
+          <h2>Farmacias</h2>
+
+        </div>
+      </div>
+    </div>
 
   </div>
 </div>
-<script>
-  function startSearch() {
-    
-  }
-</script>
 
+<script>
+
+
+  function startSearch() {
+
+    window.addEventListener('load', function() {
+      twttr.events.bind('rendered', function (event) {
+        var footer = event.target.contentDocument.querySelector('.footer');
+        footer.parentNode.removeChild(footer);
+        var follow = event.target.contentDocument.querySelector('.follow-button');
+        follow.parentNode.removeChild(follow);
+      });
+    });
+
+
+    var resultsDiv = $('#results');
+
+    if (!resultsDiv.is(':visible')) {
+      resultsDiv.css('display', 'flex');
+    }
+
+    var med = $('#searchBox').val();
+
+    $.ajax({
+            url: "http://127.0.0.1:8000/rest/tweets/?med="+med,
+            type: "GET",
+
+            contentType: 'application/json; charset=utf-8',
+            success: function(data) {
+              data.forEach( function(tweet) {
+                console.log(tweet);
+
+                twttr.widgets.createTweet(
+                  tweet.id.toString(),
+                  document.getElementById('tweetBox'),
+                  {
+                    theme: 'dark'
+                  }
+                );
+              })
+            },
+            error : function(jqXHR, textStatus, errorThrown) {
+            },
+
+            timeout: 1200000,
+        });
+
+  }
+
+</script>
 
 </body>
 {% endblock content %}

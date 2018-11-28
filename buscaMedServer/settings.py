@@ -125,7 +125,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-MEDIA_ROOT = '/home/yari/Desktop/Documents/USB/Miniproyecto/BuscaMed-Server/stores/files/'
 
 
 # Static files (CSS, JavaScript, Images)
@@ -143,6 +142,7 @@ REST_FRAMEWORK = {
 }
 
 LOGIN_REDIRECT_URL = 'readFile'   
+LOGOUT_REDIRECT_URL = 'home'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
