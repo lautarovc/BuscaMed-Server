@@ -142,7 +142,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': []
 }
 
-LOGIN_REDIRECT_URL = '/'     #cambiar 
+LOGIN_REDIRECT_URL = 'readFile'   
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
