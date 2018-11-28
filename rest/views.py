@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 from django.conf import settings
 from django.shortcuts import render, redirect
@@ -63,9 +63,11 @@ def searchDataBase(medName):
 
 # Aqui se hace lo de la busqueda de los tweets en la base de datos 
 def retrieveTweets(listaMedicinas):
+	expiryDate = datetime.now(timezone.utc) - timedelta(days=3)
+
 	listaTweets = Tweet.objects.none()
 	for i in listaMedicinas:
-		tweets = Tweet.objects.filter(medicina=i)
+		tweets = Tweet.objects.filter(medicina=i, fecha__gte=expiryDate)
 		listaTweets = listaTweets | tweets
 	return listaTweets.order_by('-fecha')
 
