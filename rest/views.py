@@ -10,6 +10,8 @@ from rest_framework.response import Response
 from django.contrib.auth.models import User, Group
 
 from webcrawler.webCrawlerFarmarket import webCrawler as webCrawlerFarmarket
+from webcrawler.webCrawlerFullFarmacia import webCrawler as webCrawlerFullFarmacia
+from webcrawler.webCrawlerFundafarmacia import webCrawler as webCrawlerFundafarmacia
 from classifier import classifier
 
 import stores.models as store
@@ -224,7 +226,9 @@ class WebViewSet(viewsets.ViewSet):
 
 		if medicina:
 			queryset = webCrawlerFarmarket('https://www.farmarket.com.ve/sitio/index.php/resultados-busqueda-productos/',medicina)
-
+			queryset2 = webCrawlerFullFarmacia(medicina)
+			queryset3 = webCrawlerFundafarmacia('http://www.fundafarmacia.com/consulta/busqueda.php', medicina)
+			queryset += queryset2 + queryset3
 		else:
 			queryset = []
 

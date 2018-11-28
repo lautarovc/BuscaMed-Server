@@ -7,6 +7,18 @@
   <link rel="stylesheet" href="{% static 'css/common.css'%}">
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+  $(document).ready(function(){
+    $("#forgetPassword").click(function(){
+        $("#secretMessage").toggle();
+    });
+
+    $("#registrate").click(function(){
+        $("#secretMessage").toggle();
+    });
+  });
+  </script>
+
   <title>Buscamed - Inicia Sesión</title>
 
   </head>
@@ -21,20 +33,21 @@
             <h2>Ingreso Farmacias</h2>
             <p>Por favor introduzca el correo inscrito y contraseña</p>
           </div>
-          <form id="Login">
+          <form method="post" id="Login">
           {% csrf_token %}
 
             <div class="form-group">
-              <input type="email" class="form-control" id="inputEmail" placeholder="Email Address">
+              {{ form.username }}
             </div>
 
             <div class="form-group">
-              <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+              {{ form.password }}
             </div>
 
             <div class="forgot">
-              <a href="reset.html">Olvidó su contraseña?</a></br>
-              <a href="contact.html">Registrarse</a>
+              <a href="#" id="forgetPassword">Olvidó su contraseña?</a></br>
+              <a href="#" id="registrate">Registrarse</a>
+              <p id="secretMessage">Contáctanos a través de buscamedvzla@gmail.com</p>
             </div>
 
             <button type="submit" class="btn btn-primary">Iniciar Sesión</button>

@@ -55,3 +55,10 @@ body#LoginForm{ background-image:url("https://hdwallsource.com/img/2014/9/blur-2
 #fileName {
   border-radius: 0.25rem;
 }
+
+#secretMessage {
+  display: none;
+  text-align: center;
+  margin-top: 25px;
+}
+

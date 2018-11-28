@@ -1,9 +1,14 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
+from django.contrib.auth.views import LoginView
+from .forms import LoginForm
 from .models import *
 import json 
 
 # Create your views here.
+
+class UserLoginView(LoginView):
+	form_class = LoginForm
 
 class StoresView(TemplateView):
 
