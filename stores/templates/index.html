@@ -93,7 +93,7 @@
     var med = $('#searchBox').val();
 
     $.ajax({
-            url: "http://127.0.0.1:8000/rest/tweets/?med="+med,
+            url: "http://buscamed.herokuapp.com/rest/tweets/?med="+med,
             type: "GET",
 
             contentType: 'application/json; charset=utf-8',
