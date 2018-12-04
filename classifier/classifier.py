@@ -164,17 +164,27 @@ def threadingTweets(keys, medicine_list, from_id=None):
 	listSize = len(medicine_list)//len(keys)
 	sizeMultiple = len(medicine_list)%len(keys) > 0
 
-	fragments = [medicine_list[i:i+listSize] for i in range(0, len(medicine_list), listSize)]
+	if (listSize > 0):
 
-	# Si las api keys no son multiplo de las medicinas, unimos el fragmento incompleto con el ultimo completo
-	if sizeMultiple:
-		fragments = fragments[:-2]+[fragments[-2]+fragments[-1]]
+		# Inicializamos fragmentos por cada API key
+		fragments = [[] for i in range(len(keys))]
+		i = 0
 
-	assert(len(fragments)==len(keys))
+		# Agregamos medicina por fragmento
+		for med in medicine_list:
+			fragments[i].append(med)
+			i += 1
+
+			# Si ya hemos agregado a todos los fragmentos, reiniciamos contador
+			if (i == len(keys)):
+				i = 0
+
+	else:
+		fragments = [medicine_list[i] for i in range(len(medicine_list))]
 
 	# Para cada fragmento y api key, creamos un hilo de busqueda de Twitter
 	threads = []
-	for i in range(len(keys)):
+	for i in range(len(fragments)):
 		thread = ListarThread(keys[i], fragments[i], from_id)
 		thread.start()
 		print("Twitter thread #"+str(i))
