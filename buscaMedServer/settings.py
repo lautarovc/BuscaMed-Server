@@ -153,3 +153,9 @@ django_heroku.settings(locals())
 
 # Twitter auth data
 TWITTER_AUTH = json.loads(os.environ.get('TWITTER_AUTH','[]'))
+
+# Time to search Twitter again (minutes)
+TWEET_UPDATE = 30
+
+# Days to expire Tweets
+TWEET_EXPIRATION = 3

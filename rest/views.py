@@ -113,7 +113,7 @@ def buscaTwitter(medName):
 		edad = datetime.now(timezone.utc) - dbTweets[0].fecha
 
 		# Si el tweet mas reciente fue hace menos de 30 minutos
-		if ((edad.seconds/60) < 30):
+		if ((edad.seconds/60) < settings.TWEET_UPDATE):
 			listaTweets = dbTweets
 
 		# En caso contrario, se buscan nuevos tweets a partir del id del tweet mas reciente
