@@ -159,3 +159,6 @@ TWEET_UPDATE = 30
 
 # Days to expire Tweets
 TWEET_EXPIRATION = 3
+
+# Days to expire Store inventory
+STORE_EXPIRATION = 5
