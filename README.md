@@ -1,5 +1,10 @@
 # BuscaMed-Server
 
+## Autores:
+* Lautaro Villalón, 12-10427
+* Yarima Luciani, 13-10770
+* Yezabel Rincón, 10-11005
+
 #### Configuracion de la BD:
 
 `$`sudo apt-get update

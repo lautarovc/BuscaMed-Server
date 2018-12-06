@@ -12,6 +12,7 @@ from sklearn.externals import joblib
 from rest import models
 from django.conf import settings
 
+######---------- VERSION 1.0 ----------######
 
 medicines = pd.read_csv("data/baseDatos-completa.csv", header=0, delimiter=",", encoding = "utf-8")  #Obtaining the medicines names from the file
 medicines_list = list(set([w.lower() for w in medicines["nombre-marca"]])) 						#Putting them tidily into a list
@@ -118,8 +119,9 @@ def batchClassify():	#Scrapping tweets, idea is do this about twice per day perh
 			# 	except:
 			# 		continue
 
+######---------- FIN VERSION 1.0 ----------######
 
-#----- VERSION 2.0 -----#
+######---------- VERSION 2.0 ----------######
 
 # Funcion que busca una lista de medicinas en Twitter
 def listarTweets(medicine_list, from_id=None):
@@ -154,46 +156,9 @@ def listarTweets(medicine_list, from_id=None):
 				except:
 					continue
 
+######---------- FIN VERSION 2.0 ----------######
 
-#----- VERSION 2.1 -----#
-
-# Funcion que divide la lista de medicinas y busca en hilos de API keys distintos
-def threadingTweets(keys, medicine_list, from_id=None):
-
-	# Dividimos la lista en sublistas
-	listSize = len(medicine_list)//len(keys)
-	sizeMultiple = len(medicine_list)%len(keys) > 0
-
-	if (listSize > 0):
-
-		# Inicializamos fragmentos por cada API key
-		fragments = [[] for i in range(len(keys))]
-		i = 0
-
-		# Agregamos medicina por fragmento
-		for med in medicine_list:
-			fragments[i].append(med)
-			i += 1
-
-			# Si ya hemos agregado a todos los fragmentos, reiniciamos contador
-			if (i == len(keys)):
-				i = 0
-
-	else:
-		fragments = [medicine_list[i] for i in range(len(medicine_list))]
-
-	# Para cada fragmento y api key, creamos un hilo de busqueda de Twitter
-	threads = []
-	for i in range(len(fragments)):
-		thread = ListarThread(keys[i], fragments[i], from_id)
-		thread.start()
-		print("Twitter thread #"+str(i))
-		threads.append(thread)
-
-	# Esperamos a que terminen los hilos
-	for thread in threads:
-		thread.join()
-
+######---------- VERSION 2.1 ----------######
 
 # Hilo que busca una lista de medicinas en Twitter
 class ListarThread(threading.Thread):
@@ -235,4 +200,41 @@ class ListarThread(threading.Thread):
 					except:
 						continue
 
+# Funcion que divide la lista de medicinas y busca en hilos de API keys distintos
+def threadingTweets(keys, medicine_list, from_id=None):
 
+	# Dividimos la lista en sublistas
+	listSize = len(medicine_list)//len(keys)
+	sizeMultiple = len(medicine_list)%len(keys) > 0
+
+	if (listSize > 0):
+
+		# Inicializamos fragmentos por cada API key
+		fragments = [[] for i in range(len(keys))]
+		i = 0
+
+		# Agregamos medicina por fragmento
+		for med in medicine_list:
+			fragments[i].append(med)
+			i += 1
+
+			# Si ya hemos agregado a todos los fragmentos, reiniciamos contador
+			if (i == len(keys)):
+				i = 0
+
+	else:
+		fragments = [medicine_list[i] for i in range(len(medicine_list))]
+
+	# Para cada fragmento y api key, creamos un hilo de busqueda de Twitter
+	threads = []
+	for i in range(len(fragments)):
+		thread = ListarThread(keys[i], fragments[i], from_id)
+		thread.start()
+		print("Twitter thread #"+str(i))
+		threads.append(thread)
+
+	# Esperamos a que terminen los hilos
+	for thread in threads:
+		thread.join()
+
+######---------- FIN VERSION 2.1 ----------######
