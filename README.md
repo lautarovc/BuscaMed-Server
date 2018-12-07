@@ -41,7 +41,7 @@
 
 `$`pip install -r requirements.txt
 
-`$`python manage.py loadmeds
+`$`python manage.py loadmeds data/baseDatos-completa.csv
 
 `$`python manage.py runserver 0.0.0.0:8000
 
