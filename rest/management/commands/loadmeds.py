@@ -23,7 +23,7 @@ class Command(BaseCommand):
 			fila = file.iloc[i]
 			aux_componente = fila['nombre-activo']
 			#print(aux_componente)
-			aux_componente = unidecode(aux_componente)
+			#aux_componente = unidecode(aux_componente)
 			#print(aux_componente)
 			if aux_componente not in diccComponente:
 				aux = Activo(componente=aux_componente)
@@ -32,6 +32,7 @@ class Command(BaseCommand):
 				contador += 1
 			else:
 				aux = Activo.objects.get(componente=aux_componente)
+
 			aux_nombre = fila['nombre-marca']
 			aux_registro = fila['registro-sanitario']
 			aux_presentacion = fila['presentacion']
@@ -42,14 +43,14 @@ class Command(BaseCommand):
 			else:
 				id_tmp = diccMedicina[aux_nombre]
 				tmp = Medicina.objects.get(id=id_tmp)
-				if tmp.activo != aux_componente:
+				if tmp.activo.componente != aux_componente:
 					aux = Activo.objects.get(componente=aux_componente)
 					tmp = Medicina(nombre=aux_nombre,activo=aux)
 					tmp.save()
 					diccComponente[aux_componente] = tmp.id
 
-			var = Presentacion(presentacion=aux_presentacion,registro=aux_registro,medicina=tmp)
-			var.save()
+			#var = Presentacion(presentacion=aux_presentacion,registro=aux_registro,medicina=tmp)
+			#var.save()
 
 			#self.stdout.write(self.style.SUCCESS('Successfully added "%s"' % aux_nombre))
 
