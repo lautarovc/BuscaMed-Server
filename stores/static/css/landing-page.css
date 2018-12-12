@@ -196,11 +196,12 @@ nav.navbar-blue {
 
 #results {
   display: none;
+  margin-top: 4em;
 }
 
 
 .resultCol {
-  margin-top: 5em;
+  margin-top: 1em;
 }
 
 #tweets-header {
@@ -217,14 +218,12 @@ nav.navbar-blue {
   text-align: center;
   text-align: -moz-center;
   text-align: -webkit-center;
-  color: black;
 }
 
 #tweetBox{
   text-align: center;
   text-align: -moz-center;
   text-align: -webkit-center;
-  color: black;
 }
 
 #webBox .card {
