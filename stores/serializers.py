@@ -3,14 +3,18 @@ from .models import *
 
 class StoreSerializer(serializers.ModelSerializer):
 	nombre = serializers.SerializerMethodField()
+	direccion = serializers.SerializerMethodField()
 
 	class Meta:
 		model = User
-		fields = ('nombre',)
-		read_only_fields = ('nombre',)
+		fields = ('nombre','direccion')
+		read_only_fields = ('nombre','direccion')
 
 	def get_nombre(self, obj):
-		return obj.first_name+" "+obj.last_name
+		return obj.first_name
+
+	def get_direccion(self, obj):
+		return obj.last_name
 
 
 class ActivoSerializer(serializers.ModelSerializer):
