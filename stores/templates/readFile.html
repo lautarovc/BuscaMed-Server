@@ -32,9 +32,12 @@
 <body id="LoginForm">
 
  <!-- Navigation -->
-    <nav class="navbar navbar-light bg-light static-top navbar-blue">
+    <nav class="navbar navbar-light text-white bg-light static-top navbar-blue">
       <div class="container">
-        <a class="navbar-brand" href="{% url 'home' %}">Buscamed</a>
+        <div>
+          <a class="navbar-brand" href="{% url 'home' %}">Buscamed</a>
+          <p>Busca tus medicinas en un solo lugar</p>
+        </div>
         <a id="logoutButton" href="{% url 'logout' %}">Salir</a> 
       </div>
     </nav>

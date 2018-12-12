@@ -138,6 +138,7 @@ nav.navbar-blue {
 .navbar-brand {
   color: white !important;
   font-size: 2rem;
+  margin-bottom: -10px;
 }
 
 #logoutButton {

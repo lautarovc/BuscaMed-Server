@@ -21,10 +21,12 @@
 <body>
 
  <!-- Navigation -->
-    <nav class="navbar navbar-light bg-light static-top navbar-blue">
+    <nav class="navbar navbar-light text-white bg-light static-top navbar-blue">
       <div class="container">
-        <a class="navbar-brand" href="{% url 'home' %}">Buscamed</a>
-        <!-- <a class="btn btn-primary" href="#">Sign In</a> -->
+        <div>
+          <a class="navbar-brand" href="{% url 'home' %}">Buscamed</a>
+          <p>Busca tus medicinas en un solo lugar</p>
+        </div>
       </div>
     </nav>
 
@@ -33,7 +35,7 @@
       <div class="container">
         <div class="row">
           <div class="col-xl-9 mx-auto">
-            <h4 class="mb-5">Busca tus medicinas en un solo lugar</h4>
+            <h4 class="mb-5"></h4>
           </div>
           <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
             <form action="#" onsubmit="startSearch();return false">
