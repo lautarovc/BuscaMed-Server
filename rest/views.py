@@ -141,23 +141,23 @@ def getComponent(medName):
 	
 	if medName:
 		# Revisamos si nos pidieron un componente activo
-		activo = store.Activo.objects.filter(componente=medName)
+		activo = Activo.objects.filter(componente=medName)
 
 		# Si no, revisamos si nos pidieron una medicina
 		if len(activo) == 0:
-			medicina = store.Medicina.objects.filter(nombre=medName)
+			medicina = Medicina.objects.filter(nombre=medName)
 
 			# Si no es ninguno, no es nada
 			if len(medicina) == 0:
-				return store.Activo.objects.none()
+				return Activo.objects.none()
 
 			# Obtenemos componente activo de la medicina
-			activo = store.Activo.objects.filter(componente=medicina[0].activo.componente)
+			activo = Activo.objects.filter(componente=medicina[0].activo.componente)
 
 		return activo
 
 	else:
-		return store.Activo.objects.none()
+		return Activo.objects.none()
 
 def retrieveInventory(medName):
 
@@ -169,7 +169,7 @@ def retrieveInventory(medName):
 			return store.ProductosPorTienda.objects.none()
 
 
-		productos = store.ProductosPorTienda.objects.filter(producto__medicina__activo=activo[0])
+		productos = store.ProductosPorTienda.objects.filter(producto__medicina__activo__componente=activo[0].componente)
 
 	else:
 		productos = store.ProductosPorTienda.objects.none()
