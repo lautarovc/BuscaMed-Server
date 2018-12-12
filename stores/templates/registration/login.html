@@ -1,52 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   {% load static %}
 
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" id="bootstrap-css">
-  <link rel="stylesheet" href="{% static 'css/common.css'%}">
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
+
+  <!-- Custom fonts for this template -->
+  <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css"/>
+  <link href="{% static 'vendor/simple-line-icons/css/simple-line-icons.css' %}" rel="stylesheet" type="text/css"/>
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/landing-page.css' %}" rel="stylesheet"/>
+
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
   <title>Buscamed - Inicia Sesión</title>
 
   </head>
   {% block content %}
-  <body id="LoginForm">
+  <body>
 
-    <div class="container">
-      <div class="navigate">
-        <a href="{% url 'home' %}"><h1 class="form-heading">Buscamed Venezuela</h1></a>
+ <!-- Navigation -->
+    <nav class="navbar navbar-light bg-light static-top navbar-blue">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">Buscamed</a>
+        <!-- <a class="btn btn-primary" href="#">Sign In</a> -->
       </div>
-      <div class="login-form">
-        <div class="main-div">
-          <div class="panel">
-            <h2>Ingreso Farmacias</h2>
-            <p>Por favor introduzca el correo inscrito y contraseña</p>
+    </nav>
+
+ <!-- Masthead -->
+    <header class="masthead text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="login-form">
+              <div class="main-div">
+              <div class="panel">
+                <h2>Ingreso Farmacias</h2>
+                <p>Por favor introduzca el correo inscrito y contraseña</p>
+              </div>
+              <form method="post" id="Login">
+              {% csrf_token %}
+
+                <div class="form-group">
+                  {{ form.username }}
+                </div>
+
+                <div class="form-group">
+                  {{ form.password }}
+                </div>
+
+                <div class="forgot">
+                  <a href="#" id="forgetPassword">Olvidó su contraseña?</a></br>
+                  <a href="#" id="signUp">Registrarse</a>
+                  <p id="secretMessage">Contáctanos a través de buscamedvzla@gmail.com</p>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block btn-lg btn-orange">Iniciar Sesión</button>
+
+             </form>
+            </div>
           </div>
-          <form method="post" id="Login">
-          {% csrf_token %}
-
-            <div class="form-group">
-              {{ form.username }}
-            </div>
-
-            <div class="form-group">
-              {{ form.password }}
-            </div>
-
-            <div class="forgot">
-              <a href="#" id="forgetPassword">Olvidó su contraseña?</a></br>
-              <a href="#" id="signUp">Registrarse</a>
-              <p id="secretMessage">Contáctanos a través de buscamedvzla@gmail.com</p>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-
-          </form>
         </div>
-        <p class="botto-text"> Designed by Sunil Rajput</p>
       </div>
-    </div>
+    </header>
+
+    <!-- Footer -->
+    <footer class="footer bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+          </div>
+          <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item mr-3">
+               <h5>Informacion USB</h5>
+              </li>
+            </ul>
+            <p class="text-muted small mb-4 mb-lg-0">&copy; Creditos</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  <!-- JavaScripts -->
+    <script src="{% static 'js/homeSearch.js' %}"></script>
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
 
   <script>
     $(document).ready(function(){
@@ -62,7 +107,7 @@
 
 
   </body>
-    {% endblock content %}
+  {% endblock content %}
 
   
 </html>

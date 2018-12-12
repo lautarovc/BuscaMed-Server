@@ -2,15 +2,24 @@
 <html>
 <head>
 	<title>Lectura de archivo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	{% load static %}
-
-	<link href="{% static 'css/common.css' %}" rel="stylesheet" type="text/css" />
-	  <!-- Bootstrap core CSS -->
+	
+  <!-- Bootstrap core CSS -->
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
+
+  <!-- Custom fonts for this template -->
+  <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css"/>
+  <link href="{% static 'vendor/simple-line-icons/css/simple-line-icons.css' %}" rel="stylesheet" type="text/css"/>
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/landing-page.css' %}" rel="stylesheet"/>
+
+  <!-- JavaScripts -->
   <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
   <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
-  
 	<script src="{% static 'js/jquery.csv.js'%}"></script>
   <script src="{% static 'js/readFile.js' %}"></script>
 
@@ -22,39 +31,64 @@
 {% block content %}
 <body id="LoginForm">
 
-<div class="container">
-  <div class="navigate">
-    <a href="{% url 'home' %}"><h1 class="form-heading">Buscamed Venezuela</h1></a>
-    <a href="{% url 'logout' %}" id="logoutButton">Cerrar sesión</a>
-  </div>
-  <div class="login-form">
-    <div class="main-div">
-      <div class="panel">
-        <h2>Ingreso Inventario</h2>
-        <p>Por favor seleccione el archivo .csv con el inventario a cargar:</p>
+ <!-- Navigation -->
+    <nav class="navbar navbar-light bg-light static-top navbar-blue">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">Buscamed</a>
+        <a id="logoutButton" href="{% url 'logout' %}">Salir</a> 
       </div>
-      <form id="Login" method="post" action="">
-      {% csrf_token %}
+    </nav>
 
-        <div class="form-group">
-          	<input type="file" name="fileName" id="fileName" class="dropify" data-allowed-file-extensions="csv"> 
+ <!-- Masthead -->
+    <header class="masthead text-white text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="login-form">
+              <div class="main-div">
+               <div class="panel">
+                <h2>Ingreso Inventario</h2>
+                <p>Por favor seleccione el archivo .csv con el inventario a cargar:</p>
+                </div>
+                <form id="Login" method="post" action="">
+                  {% csrf_token %}
+
+                  <div class="form-group">
+                      <input type="file" name="fileName" id="fileName" class="dropify" data-allowed-file-extensions="csv"> 
+                  </div>
+
+                  <input type="hidden" id="csv" name="csv">
+                  <button type="submit" id="formButton" style="display: none;"></button>
+                </form>
+                <div class="forgot">
+                  <a href="#" onclick="instructions();" id="instructions">Instrucciones</a>
+                </div>
+                <button onclick="readCSV()" class="btn btn-primary btn-orange">Cargar archivo</button>
+            </div>
+          </div>
         </div>
+      </div>
+    </header>
 
-		<input type="hidden" id="csv" name="csv">
-		<button type="submit" id="formButton" style="display: none;"></button>
+    <!-- Footer -->
+    <footer class="footer bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+          </div>
+          <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item mr-3">
+               <h5>Informacion USB</h5>
+              </li>
+            </ul>
+            <p class="text-muted small mb-4 mb-lg-0">&copy; Creditos</p>
+          </div>
+        </div>
+      </div>
+    </footer>
 
-      </form>
-	  <div class="forgot">
-	    <a href="#" id="instructions">Instrucciones</a>
-      <p id="secretMessage">Debe subir un archivo .csv que tenga las siguientes columnas: activo, medicina, presentacion y disponibilidad. Puede contener otras columnas, pero las anteriores deben aparecer con dichos nombres.</p>
-	  </div>
 
-	  <button onclick="readCSV()" class="btn btn-primary">Cargar archivo</button>
-
-    </div>
-    <p class="botto-text"> Designed by Sunil Rajput</p>
-  </div>
-</div>
 
 <!-- Alert Script -->
 <script type="text/javascript">
@@ -64,7 +98,7 @@
       alert("Carga exitosa!");
     }
     else if (context == 0) {
-      alert("Error: Error in upload. Please contact administator.")
+      alert("Error: Hubo un error en la carga del archivo. Por favor contacte a los administradores")
     }
 </script>
 
@@ -72,13 +106,13 @@
 <script type="text/javascript">
     $('.dropify').dropify({
         messages: {
-            'default': 'Drag and drop a file here or click',
-            'replace': 'Drag and drop or click to replace',
-            'remove': 'Remove',
-            'error': 'Ooops, something wrong.'
+            'default': 'Arrastre el archivo o haga click para cargarlo',
+            'replace': 'Arrastre el archivo o haga click para reemplazarlo',
+            'remove': 'Borrar',
+            'error': '¡Uy! Algo va mal'
         },
         error: {
-            'fileSize': 'The file size is too big (1M max).'
+            'fileSize': 'El tamaño del archivo es muy grande (1M max)'
         }
     });
 </script>

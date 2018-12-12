@@ -121,18 +121,23 @@ footer.footer {
 .btn-orange {
   background-color: #ff6700;
   color: white;
+  border-color: transparent;
+}
+
+.btn-orange:hover {
+  background-color: #ff6700;
+  color: white;
+  border-color: transparent;
 }
 
 nav.navbar-blue {
   background-color: #119da4 !important;
   height: 70px;
-  padding-right: 70% !important;
 }
 
 .navbar-brand {
   color: white !important;
   font-size: 2rem;
-  margin-right: 1000px;
 }
 
 #logoutButton {
@@ -143,8 +148,6 @@ nav.navbar-blue {
 .footerText {
   font-size: 1.3rem;
 }
-
-body#LoginForm{background-color: #119da4; padding:10px;}
 
 .panel h2{ color:#444444; font-size:18px; margin:0 0 8px 0;}
 .panel p { color:#777777; font-size:14px; margin-bottom:30px; line-height:24px;}
@@ -226,4 +229,8 @@ body#LoginForm{background-color: #119da4; padding:10px;}
 #webBox .card {
   border-color: rgba(0, 0, 0, 0.125);
 
+}
+
+#logout {
+  float: right;
 }
