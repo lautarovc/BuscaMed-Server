@@ -4,10 +4,6 @@
 	<title>Buscamed</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	{% load static %}
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" id="bootstrap-css">
-  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
   <!-- Bootstrap core CSS -->
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
@@ -19,7 +15,6 @@
 
   <!-- Custom styles for this template -->
   <link href="{% static 'css/landing-page.css' %}" rel="stylesheet"/>
-
 
 </head>
 {% block content %}
@@ -41,16 +36,35 @@
             <h1 class="mb-5">Buscamed</h1>
           </div>
           <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-            <form>
+            <form action="#" onsubmit="startSearch();return false">
               <div class="form-row">
                 <div class="col-12 col-md-9 mb-2 mb-md-0">
-                  <input type="text" class="form-control form-control-lg" placeholder="Medicina/Componente activo">
+                  <input type="text" id="searchBox" class="form-control form-control-lg" placeholder="Medicina/Componente activo">
                 </div>
                 <div class="col-12 col-md-3">
-                  <button name="search" class="btn btn-block btn-lg btn-orange" onclick="startSearch();">Buscar</button>
+                  <button type="submit" class="btn btn-block btn-lg btn-orange" >Buscar</button>
                 </div>
               </div>
             </form>
+          </div>
+        </div>
+
+        <div class="row" id="results">
+          <div class="col-lg-6 resultCol">
+            <div class="card text-center">
+              <h5 onclick="toggleTweets();" id="tweets-header" class="card-header text-center text-white">Twitter</h5>
+              <div id="tweetBox" class="card-body text-center">
+
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 resultCol">
+            <div class="card text-center">
+              <h5 onclick="toggleWeb();" id="web-header" class="card-header text-center text-white">Farmacias</h5>
+              <div id="webBox" class="card-body">
+
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -89,60 +103,10 @@
       </div>
     </footer>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<script>
-
-
-  function startSearch() {
-
-    window.addEventListener('load', function() {
-      twttr.events.bind('rendered', function (event) {
-        var footer = event.target.contentDocument.querySelector('.footer');
-        footer.parentNode.removeChild(footer);
-        var follow = event.target.contentDocument.querySelector('.follow-button');
-        follow.parentNode.removeChild(follow);
-      });
-    });
-
-
-    var resultsDiv = $('#results');
-
-    if (!resultsDiv.is(':visible')) {
-      resultsDiv.css('display', 'flex');
-    }
-
-    var med = $('#searchBox').val();
-
-    $.ajax({
-            url: "http://buscamed.herokuapp.com/rest/tweets/?med="+med,
-            type: "GET",
-
-            contentType: 'application/json; charset=utf-8',
-            success: function(data) {
-              data.forEach( function(tweet) {
-                console.log(tweet);
-
-                twttr.widgets.createTweet(
-                  tweet.id.toString(),
-                  document.getElementById('tweetBox'),
-                  {
-                    theme: 'dark'
-                  }
-                );
-              })
-            },
-            error : function(jqXHR, textStatus, errorThrown) {
-            },
-
-            timeout: 1200000,
-        });
-
-  }
-
-</script>
+    <!-- JavaScripts -->
+    <script src="{% static 'js/homeSearch.js' %}"></script>
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
 </body>
 {% endblock content %}

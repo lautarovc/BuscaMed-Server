@@ -22,8 +22,8 @@ header.masthead {
   position: relative;
   background-color: #ebebeb;
   background-size: cover;
-  padding-top: 8rem;
-  padding-bottom: 8rem;
+  padding-top: 5rem;
+  padding-bottom: 6rem;
 }
 
 header.masthead h1 {
@@ -33,8 +33,8 @@ header.masthead h1 {
 
 @media (min-width: 768px) {
   header.masthead {
-    padding-top: 12rem;
-    padding-bottom: 12rem;
+    padding-top: 5rem;
+    padding-bottom: 6rem;
   }
   header.masthead h1 {
     font-size: 3rem;
@@ -133,13 +133,11 @@ footer.footer {
 nav.navbar-blue {
   background-color: #119da4 !important;
   height: 70px;
-  padding-right: 70% !important;
 }
 
 .navbar-brand {
   color: white !important;
   font-size: 2rem;
-  margin-right: 1000px;
 }
 
 #logoutButton {
@@ -200,3 +198,40 @@ nav.navbar-blue {
   display: none;
 }
 
+
+.resultCol {
+  margin-top: 5em;
+}
+
+#tweets-header {
+  background-color: #119da4;
+  cursor: pointer;
+}
+
+#web-header {
+  background-color: #ff6700;
+  cursor: pointer;
+}
+
+#webBox{
+  text-align: center;
+  text-align: -moz-center;
+  text-align: -webkit-center;
+  color: black;
+}
+
+#tweetBox{
+  text-align: center;
+  text-align: -moz-center;
+  text-align: -webkit-center;
+  color: black;
+}
+
+#webBox .card {
+  border-color: rgba(0, 0, 0, 0.125);
+
+}
+
+#logout {
+  float: right;
+}

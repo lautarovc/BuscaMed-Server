@@ -2,8 +2,21 @@
 <html>
 <head>
 	<title>Lectura de archivo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	{% load static %}
-	<link href="{% static 'css/landing-page.css' %}" rel="stylesheet"/>
+	
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
+
+  <!-- Custom fonts for this template -->
+  <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css"/>
+  <link href="{% static 'vendor/simple-line-icons/css/simple-line-icons.css' %}" rel="stylesheet" type="text/css"/>
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+<!-- JavaScripts -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/landing-page.css' %}" rel="stylesheet"/>
 	<script src="{% static 'js/jquery.csv.js'%}"></script>
   <script src="{% static 'js/readFile.js' %}"></script>
 
@@ -19,7 +32,7 @@
     <nav class="navbar navbar-light bg-light static-top navbar-blue">
       <div class="container">
         <a class="navbar-brand" href="{% url 'home' %}">Buscamed</a>
-        <!-- <a class="btn btn-primary" href="#">Sign In</a> -->
+        <a id="logoutButton" href="{% url 'logout' %}">Salir</a> 
       </div>
     </nav>
 
@@ -72,6 +85,8 @@
       </div>
     </footer>
 
+
+
 <!-- Alert Script -->
 <script type="text/javascript">
     var context = {{ success }};
@@ -80,7 +95,7 @@
       alert("Carga exitosa!");
     }
     else if (context == 0) {
-      alert("Error: Error in upload. Please contact administator.")
+      alert("Error: Hubo un error en la carga del archivo. Por favor contacte a los administradores")
     }
 </script>
 
@@ -88,13 +103,13 @@
 <script type="text/javascript">
     $('.dropify').dropify({
         messages: {
-            'default': 'Drag and drop a file here or click',
-            'replace': 'Drag and drop or click to replace',
-            'remove': 'Remove',
-            'error': 'Ooops, something wrong.'
+            'default': 'Arrastre el archivo o haga click para cargarlo',
+            'replace': 'Arrastre el archivo o haga click para reemplazarlo',
+            'remove': 'Borrar',
+            'error': '¡Uy! Algo va mal'
         },
         error: {
-            'fileSize': 'The file size is too big (1M max).'
+            'fileSize': 'El tamaño del archivo es muy grande (1M max)'
         }
     });
 </script>

@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   {% load static %}
 
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" id="bootstrap-css">
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
+
+  <!-- Custom fonts for this template -->
+  <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css"/>
+  <link href="{% static 'vendor/simple-line-icons/css/simple-line-icons.css' %}" rel="stylesheet" type="text/css"/>
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+  <!-- Custom styles for this template -->
   <link href="{% static 'css/landing-page.css' %}" rel="stylesheet"/>
+
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
   <title>Buscamed - Inicia Sesión</title>
 
   </head>
@@ -22,7 +33,7 @@
     </nav>
 
  <!-- Masthead -->
-    <header class="masthead text-white text-center">
+    <header class="masthead text-center">
       <div class="container">
         <div class="row">
           <div class="col-xl-12">
@@ -50,7 +61,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-block btn-lg btn-orange">Iniciar Sesión</button>
-                
+
              </form>
             </div>
           </div>
@@ -75,6 +86,11 @@
         </div>
       </div>
     </footer>
+
+  <!-- JavaScripts -->
+    <script src="{% static 'js/homeSearch.js' %}"></script>
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
 
   <script>
