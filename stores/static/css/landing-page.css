@@ -163,14 +163,15 @@ nav.navbar-blue {
   background: #ffffff none repeat scroll 0 0;
   border-radius: 2px;
   margin: 10px auto 30px;
-  max-width: 38%;
   padding: 50px 70px 70px 71px;
 }
 
 .login-form .form-group {
   margin-bottom:10px;
 }
-.login-form{ text-align:center;}
+.login-form{
+  text-align:center;
+}
 .forgot a {
   color: #777777;
   font-size: 14px;

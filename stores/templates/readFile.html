@@ -41,32 +41,33 @@
 
  <!-- Masthead -->
     <header class="masthead text-white text-center">
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-12">
-            <div class="login-form">
-              <div class="main-div">
-               <div class="panel">
-                <h2>Ingreso Inventario</h2>
-                <p>Por favor seleccione el archivo .csv con el inventario a cargar:</p>
-                </div>
-                <form id="Login" method="post" action="">
-                  {% csrf_token %}
+      <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+          <div class="login-form">
+            <div class="main-div">
+             <div class="panel">
+              <h2>Ingreso Inventario</h2>
+              <p>Por favor seleccione el archivo .csv con el inventario a cargar:</p>
+              </div>
+              <form id="Login" method="post" action="">
+                {% csrf_token %}
 
-                  <div class="form-group">
-                      <input type="file" name="fileName" id="fileName" class="dropify" data-allowed-file-extensions="csv"> 
-                  </div>
-
-                  <input type="hidden" id="csv" name="csv">
-                  <button type="submit" id="formButton" style="display: none;"></button>
-                </form>
-                <div class="forgot">
-                  <a href="#" onclick="instructions();" id="instructions">Instrucciones</a>
+                <div class="form-group">
+                    <input type="file" name="fileName" id="fileName" class="dropify" data-allowed-file-extensions="csv"> 
                 </div>
-                <button onclick="readCSV()" class="btn btn-primary btn-orange">Cargar archivo</button>
+
+                <input type="hidden" id="csv" name="csv">
+                <button type="submit" id="formButton" style="display: none;"></button>
+              </form>
+              <div class="forgot">
+                <a href="#" onclick="instructions();" id="instructions">Instrucciones</a>
+              </div>
+              <button onclick="readCSV()" class="btn btn-primary btn-orange">Cargar archivo</button>
             </div>
           </div>
         </div>
+        <div class="col-lg-4"></div>
       </div>
     </header>
 

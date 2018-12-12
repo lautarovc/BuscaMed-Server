@@ -34,39 +34,39 @@
 
  <!-- Masthead -->
     <header class="masthead text-center">
-      <div class="container">
         <div class="row">
-          <div class="col-xl-12">
+          <div class="col-lg-4"></div>
+          <div class="col-lg-4">
             <div class="login-form">
               <div class="main-div">
-              <div class="panel">
-                <h2>Ingreso Farmacias</h2>
-                <p>Por favor introduzca el correo inscrito y contraseña</p>
+                <div class="panel">
+                  <h2>Ingreso Farmacias</h2>
+                  <p>Por favor introduzca el correo inscrito y contraseña</p>
+                </div>
+                <form method="post" id="Login">
+                {% csrf_token %}
+
+                  <div class="form-group">
+                    {{ form.username }}
+                  </div>
+
+                  <div class="form-group">
+                    {{ form.password }}
+                  </div>
+
+                  <div class="forgot">
+                    <a href="#" id="forgetPassword">Olvidó su contraseña?</a></br>
+                    <a href="#" id="signUp">Registrarse</a>
+                    <p id="secretMessage">Contáctanos a través de buscamedvzla@gmail.com</p>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary btn-block btn-lg btn-orange">Iniciar Sesión</button>
+                </form>
               </div>
-              <form method="post" id="Login">
-              {% csrf_token %}
-
-                <div class="form-group">
-                  {{ form.username }}
-                </div>
-
-                <div class="form-group">
-                  {{ form.password }}
-                </div>
-
-                <div class="forgot">
-                  <a href="#" id="forgetPassword">Olvidó su contraseña?</a></br>
-                  <a href="#" id="signUp">Registrarse</a>
-                  <p id="secretMessage">Contáctanos a través de buscamedvzla@gmail.com</p>
-                </div>
-
-                <button type="submit" class="btn btn-primary btn-block btn-lg btn-orange">Iniciar Sesión</button>
-
-             </form>
             </div>
           </div>
+          <div class="col-lg-4"></div>
         </div>
-      </div>
     </header>
 
     <!-- Footer -->
