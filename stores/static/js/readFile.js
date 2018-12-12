@@ -17,7 +17,7 @@ function readCSV() {
 	
 	if (fileType != "csv") {
 		// PONER AQUI MENSAJE DE ARCHIVO NO ES CSV
-		alert("Error: File not .csv");
+		alert("Error: El archivo no es un .csv");
 		return;
 	}
 
@@ -63,4 +63,10 @@ function readCSV() {
 			$('#formButton').click();
 	}
 	reader.onerror = function(){ alert('Unable to read ' + file.fileName); };
+}
+
+function instructions() {
+
+	alert("Debe subir un archivo .csv que tenga las siguientes columnas: activo, medicina, presentacion y disponibilidad. Puede contener otras columnas, pero las anteriores deben aparecer con dichos nombres.");
+	return;
 }

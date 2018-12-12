@@ -3,11 +3,7 @@
 <head>
 	<title>Lectura de archivo</title>
 	{% load static %}
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" id="bootstrap-css">
-	<link href="{% static 'css/common.css' %}" rel="stylesheet" type="text/css" />
-	
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<link href="{% static 'css/landing-page.css' %}" rel="stylesheet"/>
 	<script src="{% static 'js/jquery.csv.js'%}"></script>
   <script src="{% static 'js/readFile.js' %}"></script>
 
@@ -19,39 +15,62 @@
 {% block content %}
 <body id="LoginForm">
 
-<div class="container">
-  <div class="navigate">
-    <a href="{% url 'home' %}"><h1 class="form-heading">Buscamed Venezuela</h1></a>
-    <a href="{% url 'logout' %}" id="logoutButton">Cerrar sesión</a>
-  </div>
-  <div class="login-form">
-    <div class="main-div">
-      <div class="panel">
-        <h2>Ingreso Inventario</h2>
-        <p>Por favor seleccione el archivo .csv con el inventario a cargar:</p>
+ <!-- Navigation -->
+    <nav class="navbar navbar-light bg-light static-top navbar-blue">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">Buscamed</a>
+        <!-- <a class="btn btn-primary" href="#">Sign In</a> -->
       </div>
-      <form id="Login" method="post" action="">
-      {% csrf_token %}
+    </nav>
 
-        <div class="form-group">
-          	<input type="file" name="fileName" id="fileName" class="dropify" data-allowed-file-extensions="csv"> 
+ <!-- Masthead -->
+    <header class="masthead text-white text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="login-form">
+              <div class="main-div">
+               <div class="panel">
+                <h2>Ingreso Inventario</h2>
+                <p>Por favor seleccione el archivo .csv con el inventario a cargar:</p>
+                </div>
+                <form id="Login" method="post" action="">
+                  {% csrf_token %}
+
+                  <div class="form-group">
+                      <input type="file" name="fileName" id="fileName" class="dropify" data-allowed-file-extensions="csv"> 
+                  </div>
+
+                  <input type="hidden" id="csv" name="csv">
+                  <button type="submit" id="formButton" style="display: none;"></button>
+                </form>
+                <div class="forgot">
+                  <a href="#" onclick="instructions();" id="instructions">Instrucciones</a>
+                </div>
+                <button onclick="readCSV()" class="btn btn-primary btn-orange">Cargar archivo</button>
+            </div>
+          </div>
         </div>
+      </div>
+    </header>
 
-		<input type="hidden" id="csv" name="csv">
-		<button type="submit" id="formButton" style="display: none;"></button>
-
-      </form>
-	  <div class="forgot">
-	    <a href="#" id="instructions">Instrucciones</a>
-      <p id="secretMessage">Debe subir un archivo .csv que tenga las siguientes columnas: activo, medicina, presentacion y disponibilidad. Puede contener otras columnas, pero las anteriores deben aparecer con dichos nombres.</p>
-	  </div>
-
-	  <button onclick="readCSV()" class="btn btn-primary">Cargar archivo</button>
-
-    </div>
-    <p class="botto-text"> Designed by Sunil Rajput</p>
-  </div>
-</div>
+    <!-- Footer -->
+    <footer class="footer bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+          </div>
+          <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item mr-3">
+               <h5>Informacion USB</h5>
+              </li>
+            </ul>
+            <p class="text-muted small mb-4 mb-lg-0">&copy; Creditos</p>
+          </div>
+        </div>
+      </div>
+    </footer>
 
 <!-- Alert Script -->
 <script type="text/javascript">
