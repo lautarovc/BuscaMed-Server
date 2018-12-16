@@ -7,7 +7,7 @@ import re
 def webCrawler(medicine):
 	url = 'http://fullfarmacia.com/catalog.do?page=1&offSet=0&op=requestSearch&searchBox='+medicine+'&go.x=0&go.y=0'
 
-	sourceCode = requests.get(url)
+	sourceCode = requests.get(url, timeout=60)
 	plainText = sourceCode.text 
 	soup = BeautifulSoup(plainText, 'html.parser')
 
@@ -51,8 +51,9 @@ def collectInfo(tds):
 
 			i += 2
 
-	store = {'farmacia': 'FullFarmacia', 'sede' : 'Colinas de Bello Monte', 'productos' : productsByStore}
-	totalList.append(store)
+	if (len(productsByStore) > 0):
+		store = {'farmacia': 'FullFarmacia', 'sede' : 'Colinas de Bello Monte', 'productos' : productsByStore}
+		totalList.append(store)
 
 	return totalList
 
