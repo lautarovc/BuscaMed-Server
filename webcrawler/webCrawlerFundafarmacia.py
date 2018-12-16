@@ -3,7 +3,11 @@ from bs4 import BeautifulSoup
 import re 
 
 def webCrawler(url, medicine):
-	sourceCode = requests.post(url, data = {'producto' : medicine, 'estado' : '', 'lugar' : ''}, timeout=60)
+	try:
+		sourceCode = requests.post(url, data = {'producto' : medicine, 'estado' : '', 'lugar' : ''}, timeout=30)
+	except:
+		return []
+
 	plainText = sourceCode.text 
 	soup = BeautifulSoup(plainText, 'html.parser')
 

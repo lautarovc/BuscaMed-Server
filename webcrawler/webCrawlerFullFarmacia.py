@@ -6,8 +6,12 @@ import re
 
 def webCrawler(medicine):
 	url = 'http://fullfarmacia.com/catalog.do?page=1&offSet=0&op=requestSearch&searchBox='+medicine+'&go.x=0&go.y=0'
+	
+	try:
+		sourceCode = requests.get(url, timeout=30)
+	except:
+		return []
 
-	sourceCode = requests.get(url, timeout=60)
 	plainText = sourceCode.text 
 	soup = BeautifulSoup(plainText, 'html.parser')
 
