@@ -22,8 +22,8 @@ header.masthead {
   position: relative;
   background-color: #ebebeb;
   background-size: cover;
-  padding-top: 10rem;
-  padding-bottom: 15rem;
+  padding-top: 6rem;
+  padding-bottom: 10rem;
 }
 
 header.masthead h1 {
@@ -33,8 +33,8 @@ header.masthead h1 {
 
 @media (min-width: 768px) {
   header.masthead {
-    padding-top: 10rem;
-    padding-bottom: 15rem;
+    padding-top: 9rem;
+    padding-bottom: 10rem;
   }
   header.masthead h1 {
     font-size: 3rem;
@@ -160,6 +160,10 @@ nav.navbar-blue {
 
 .simonLogo {
   width:30%;
+}
+
+.cursor-pointer {
+  cursor:pointer;
 }
 
 .panel h2{ color:#444444; font-size:18px; margin:0 0 8px 0;}

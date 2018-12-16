@@ -15,7 +15,12 @@
 
   <!-- Custom styles for this template -->
   <link href="{% static 'css/landing-page.css' %}" rel="stylesheet"/>
+
+  <!-- JavaScripts -->
   <script src="{% static 'js/email.js' %}"></script>
+  <script src="{% static 'js/homeSearch.js' %}"></script>
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
 
 </head>
@@ -23,102 +28,104 @@
 <body onload="loadEmail();">
 
  <!-- Navigation -->
-    <nav class="navbar navbar-light text-white bg-light static-top navbar-blue">
-      <div class="container">
-        <div>
-          <a class="navbar-brand" href="{% url 'home' %}">Buscamed</a>
-          <p>Busca tus medicinas en un solo lugar</p>
-        </div>
+  <nav class="navbar navbar-light text-white bg-light static-top navbar-blue">
+    <div class="container">
+      <div>
+        <a class="navbar-brand" href="{% url 'home' %}">Buscamed</a>
+        <p>Busca tus medicinas en un solo lugar</p>
       </div>
-    </nav>
+    </div>
+  </nav>
 
-    <!-- Masthead -->
-    <header class="masthead text-center">
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-9 mx-auto">
-            <h4 class="mb-5"></h4>
-          </div>
-          <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-            <form action="#" onsubmit="startSearch();return false">
-              <div class="form-row">
-                <div class="col-12 col-md-9 mb-2 mb-md-0">
-                  <input type="text" id="searchBox" class="form-control form-control-lg" placeholder="Medicina/Componente activo">
-                </div>
-                <div class="col-12 col-md-3">
-                  <button type="submit" class="btn btn-block btn-lg btn-orange" >Buscar</button>
-                </div>
-              </div>
-            </form>
-          </div>
+  <!-- Masthead -->
+  <header class="masthead text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-9 mx-auto">
+          <h4 class="mb-5"></h4>
         </div>
-
-        <div class="row" id="results">
-          <div class="col-lg-6 resultCol">
-            <div class="card text-center">
-              <h5 onclick="toggleTweets();" id="tweets-header" class="card-header text-center text-white">Twitter</h5>
-              <div id="tweetBox" class="card-body text-center">
-
+        <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+          <form action="#" onsubmit="startSearch();return false">
+            <div class="form-row">
+              <div class="col-12 col-md-9 mb-2 mb-md-0">
+                <input type="text" id="searchBox" class="form-control form-control-lg" placeholder="Medicina/Componente activo">
+              </div>
+              <div class="col-12 col-md-3">
+                <button type="submit" class="btn btn-block btn-lg btn-orange" >Buscar</button>
               </div>
             </div>
-          </div>
-          <div class="col-lg-6 resultCol">
-            <div class="card text-center">
-              <h5 onclick="toggleWeb();" id="web-header" class="card-header text-center text-white">Farmacias</h5>
-              <div id="webBox" class="card-body">
+          </form>
+        </div>
+      </div>
 
-              </div>
+      <div class="row" id="results">
+        <div class="col-lg-6 resultCol">
+          <div class="card text-center">
+            <h5 onclick="toggleTweets();" id="tweets-header" class="card-header text-center text-white">Twitter</h5>
+            <div id="tweetBox" class="card-body text-center">
+
             </div>
           </div>
         </div>
-      </div>
-    </header>
+        <div class="col-lg-6 resultCol">
+          <div class="card text-center">
+            <h5 onclick="toggleWeb();" id="web-header" class="card-header text-center text-white">Farmacias</h5>
+            <div id="webBox" class="card-body">
 
-
-    <!-- Footer -->
-    <footer class="footer bg-light">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4 h-100 text-center text-lg-left my-auto">
-            <ul class="list-inline mb-2">
-              <li class="list-inline-item">
-                <p class="footerText">Si eres una farmacia y ya te encuentras registrada inicia sesión haciendo click en el siguiente botón:</p>
-              </li>
-              <li class="list-inline-item">
-                <a href="{% url 'login' %}" id="logoutButton">Iniciar sesión</a>
-              </li>
-              <br>
-              <br>
-              <li class="list-inline-item">
-                <p class="footerText">Si deseas incluir tu inventario a la base de datos comunícate con nosotros a través de:</p>
-                <p id="email" class="footerText"></p>
-              </li>
-            </ul>
-          </div>
-          <div class="col-lg-4">
-           <table class="text-center fullwidthFooter">
-             <tr><td>Desarrollado por:</td></tr>
-             <tr><td>Lautaro Villalón</td></tr>
-             <tr><td>Yarima Luciani</td></tr>
-             <tr><td>Yezabel Rincón</td></tr>
-             <tr><td>Para el curso <b>EP4793</b> por</td></tr>
-             <tr><td>Prof. Ivette C. Martínez</td></tr>
-             <tr><td>Sep-Dic 2018</td></tr>
-           </table>
-          </div>
-          <div class="col-lg-4 h-100 text-center text-lg-right my-auto">
-            <img class="simonLogo" src="{% static 'img/logoUSB-blanco.gif' %}">
-            <p class="footerText text-lg-right">&copy; Universidad Simón Bolivar</p>
-            <p class="footerText text-lg-right">Sartenejas, Baruta, Edo. Miranda - Apartado 89000 Cable Unibolivar Caracas Venezuela.</p>
+            </div>
           </div>
         </div>
       </div>
-    </footer>
+    </div>
+  </header>
 
-    <!-- JavaScripts -->
-    <script src="{% static 'js/homeSearch.js' %}"></script>
-    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Footer -->
+  <footer class="footer bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5 h-100 text-center text-lg-left my-auto">
+          <ul class="list-inline mb-2">
+            <li class="list-inline-item">
+              <p class="footerText">Si eres una farmacia y ya te encuentras registrada inicia sesión haciendo click en el siguiente botón:</p>
+            </li>
+            <li class="list-inline-item">
+              <a href="{% url 'login' %}" id="logoutButton">Iniciar sesión</a>
+            </li>
+            <br>
+            <br>
+            <li class="list-inline-item">
+              <p class="footerText">Si deseas incluir tu inventario a la base de datos comunícate con nosotros a través de:</p>
+              <p id="email" class="footerText"></p>
+            </li>
+          </ul>
+        </div>
+        <div class="col-lg-2">
+        </div>
+        <div class="col-lg-5 h-100 text-center text-lg-right my-auto">
+          <img class="simonLogo" src="{% static 'img/logoUSB-blanco.gif' %}">
+          <p class="footerText text-lg-right">&copy; Universidad Simón Bolivar</p>
+          <p class="footerText text-lg-right"><b>EP4793</b> - Mini Proyecto de Desarrollo de Software <br/>Sep-Dic 2018 - 
+            <b class="cursor-pointer" tabindex="0" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-html="true" title="Desarrollado por:" data-content='<div class="text-center">Lautaro Villalón<br/>Yarima Luciani<br/>Yezabel Rincón<br/><br/><b>Con la tutoría de:</b><br/>Prof. Ivette C. Martínez</div>'>
+              Ver Detalle
+            </b>
+          </p>
+          <p class="footerText text-lg-right">Sartenejas, Baruta, Edo. Miranda - Apartado 89000 Cable Unibolivar Caracas Venezuela.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- popover script -->
+  <script>
+    $(function () {
+      $('[data-toggle="popover"]').popover()
+    });
+
+    $('.popover-dismiss').popover({
+      trigger: 'focus'
+    });
+  </script>
 
 </body>
 {% endblock content %}

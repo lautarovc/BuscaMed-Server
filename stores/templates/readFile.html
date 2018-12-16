@@ -64,7 +64,9 @@
                 <button type="submit" id="formButton" style="display: none;"></button>
               </form>
               <div class="forgot">
-                <a href="#" onclick="instructions();" id="instructions">Instrucciones</a>
+                <a class="cursor-pointer" tabindex="0" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="left" data-html="true" title="Instrucciones:" data-content='<div class="text-left">Debe subir un archivo .csv que tenga las siguientes columnas:<br/><b>activo, medicina, presentacion y disponibilidad.</b><br/>Puede contener otras columnas, pero las anteriores deben aparecer con dichos nombres.</div>'>
+                  Instrucciones
+                </a>
               </div>
               <button onclick="readCSV()" class="btn btn-primary btn-orange">Cargar archivo</button>
             </div>
@@ -79,20 +81,17 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6">
-           <table class="text-center fullwidthFooter">
-             <tr><td>Desarrollado por:</td></tr>
-             <tr><td>Lautaro Villalón</td></tr>
-             <tr><td>Yarima Luciani</td></tr>
-             <tr><td>Yezabel Rincón</td></tr>
-             <tr><td>Para el curso <b>EP4793</b> por</td></tr>
-             <tr><td>Prof. Ivette C. Martínez</td></tr>
-             <tr><td>Sep-Dic 2018</td></tr>
-           </table>
           </div>
           <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
             <img class="simonLogo" src="{% static 'img/logoUSB-blanco.gif' %}">
             <p class="footerText text-lg-right">&copy; Universidad Simón Bolivar</p>
+            <p class="footerText text-lg-right"><b>EP4793</b> - Mini Proyecto de Desarrollo de Software <br/>Sep-Dic 2018 - 
+              <b class="cursor-pointer" tabindex="0" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-html="true" title="Desarrollado por:" data-content='<div class="text-center">Lautaro Villalón<br/>Yarima Luciani<br/>Yezabel Rincón<br/><br/><b>Con la tutoría de:</b><br/>Prof. Ivette C. Martínez</div>'>
+                Ver Detalle
+              </b>
+            </p>
             <p class="footerText text-lg-right">Sartenejas, Baruta, Edo. Miranda - Apartado 89000 Cable Unibolivar Caracas Venezuela.</p>
+          </div>
           </div>
         </div>
       </div>
@@ -132,6 +131,17 @@
     $("#instructions").click(function(){
       $("#secretMessage").toggle();
     });
+  });
+</script>
+
+<!-- popover script -->
+<script>
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  });
+
+  $('.popover-dismiss').popover({
+    trigger: 'focus'
   });
 </script>
 

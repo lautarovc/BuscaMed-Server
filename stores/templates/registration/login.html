@@ -78,20 +78,17 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6">
-           <table class="text-center fullwidthFooter">
-             <tr><td>Desarrollado por:</td></tr>
-             <tr><td>Lautaro Villalón</td></tr>
-             <tr><td>Yarima Luciani</td></tr>
-             <tr><td>Yezabel Rincón</td></tr>
-             <tr><td>Para el curso <b>EP4793</b> por</td></tr>
-             <tr><td>Prof. Ivette C. Martínez</td></tr>
-             <tr><td>Sep-Dic 2018</td></tr>
-           </table>
           </div>
           <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
             <img class="simonLogo" src="{% static 'img/logoUSB-blanco.gif' %}">
             <p class="footerText text-lg-right">&copy; Universidad Simón Bolivar</p>
+            <p class="footerText text-lg-right"><b>EP4793</b> - Mini Proyecto de Desarrollo de Software <br/>Sep-Dic 2018 - 
+              <b class="cursor-pointer" tabindex="0" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-html="true" title="Desarrollado por:" data-content='<div class="text-center">Lautaro Villalón<br/>Yarima Luciani<br/>Yezabel Rincón<br/><br/><b>Con la tutoría de:</b><br/>Prof. Ivette C. Martínez</div>'>
+                Ver Detalle
+              </b>
+            </p>
             <p class="footerText text-lg-right">Sartenejas, Baruta, Edo. Miranda - Apartado 89000 Cable Unibolivar Caracas Venezuela.</p>
+          </div>
           </div>
         </div>
       </div>
@@ -102,7 +99,7 @@
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
-
+  <!-- secret message script -->
   <script>
     $(document).ready(function(){
       $("#forgetPassword").click(function(){
@@ -115,6 +112,16 @@
     });
   </script>
 
+  <!-- popover script -->
+  <script>
+    $(function () {
+      $('[data-toggle="popover"]').popover()
+    });
+
+    $('.popover-dismiss').popover({
+      trigger: 'focus'
+    });
+  </script>
 
   </body>
   {% endblock content %}

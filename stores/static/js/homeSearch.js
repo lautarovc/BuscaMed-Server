@@ -6,6 +6,9 @@ Authors: Lautaro Villalon
 Contains ajax functions that use the Buscamed API rest to find medicines
 */
 
+var user = "buscamedvzla"
+var mail = "gmail"
+
 function toggleTweets() {
   $('#tweetBox').toggle();
 }
@@ -45,7 +48,7 @@ function ajaxBuscamedTweets(med) {
           success: function(data) {
             console.log(data);
             if (data.length == 0) {
-              $('#tweetBox').html("<p>No se consiguieron resultados</p><p>Si crees que esto es un error, contáctanos.</p>");
+              $('#tweetBox').html("<p>No se consiguieron resultados</p><p>Si crees que esto es un error, contáctanos a <b>"+user+"@"+mail+".com</b></p>");
             }
             data.forEach( function(tweet) {
               console.log(tweet);
@@ -54,7 +57,7 @@ function ajaxBuscamedTweets(med) {
             });
           },
           error : function(jqXHR, textStatus, errorThrown) {
-            $('#tweetBox').html("<p>Ha ocurrido un error</p><p>Por favor contáctanos.</p>");
+            $('#tweetBox').html("<p>Ha ocurrido un error</p><p>Por favor contáctanos a <b>"+user+"@"+mail+".com</b></p>");
 
           },
 
@@ -76,7 +79,7 @@ function ajaxTwitter(tweetUrl) {
           },
           error : function(jqXHR, textStatus, errorThrown) {
 
-            $('#tweetBox').append("<p>Can't access Twitter embed. Contact administrator.</p>")
+            $('#tweetBox').append("<p>No se puede acceder al Twitter embed API. Por favor contáctanos a <b>"+user+"@"+mail+".com</b></p>")
           },
 
           timeout: 1200000,
@@ -91,7 +94,7 @@ function ajaxBuscamedWeb(med) {
           contentType: 'application/json; charset=utf-8',
           success: function(data) {
             if (data.length == 0) {
-              $('#webBox').html("<p>No se consiguieron resultados</p><p>Si crees que esto es un error, contáctanos.</p>");
+              $('#webBox').html("<p>No se consiguieron resultados</p><p>Si crees que esto es un error, contáctanos a <b>"+user+"@"+mail+".com</b></p>");
             }
 
             data.forEach( function(store) {
@@ -100,7 +103,7 @@ function ajaxBuscamedWeb(med) {
             });
           },
           error : function(jqXHR, textStatus, errorThrown) {
-            $('#webBox').html("<p>Ha ocurrido un error</p><p>Por favor contáctanos.</p>");
+            $('#webBox').html("<p>Ha ocurrido un error</p><p>Por favor contáctanos a <b>"+user+"@"+mail+".com</b></p>");
           },
 
           timeout: 12000000,
