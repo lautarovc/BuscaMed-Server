@@ -132,6 +132,9 @@ footer.footer {
 nav.navbar-blue {
   background-color: #119da4 !important;
   height: 70px;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
 }
 
 .navbar-brand {
@@ -146,7 +149,17 @@ nav.navbar-blue {
 }
 
 .footerText {
-  font-size: 1.3rem;
+  font-size: 1rem;
+  text-align: justify;
+  line-height: 1.1rem;
+}
+
+.fullwidthFooter {
+  width:100%;
+}
+
+.simonLogo {
+  width:30%;
 }
 
 .panel h2{ color:#444444; font-size:18px; margin:0 0 8px 0;}

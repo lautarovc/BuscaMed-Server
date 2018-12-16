@@ -43,6 +43,10 @@ function ajaxBuscamedTweets(med) {
 
           contentType: 'application/json; charset=utf-8',
           success: function(data) {
+            console.log(data);
+            if (data.length == 0) {
+              $('#tweetBox').html("<p>No se consiguieron resultados</p><p>Si crees que esto es un error, contáctanos.</p>");
+            }
             data.forEach( function(tweet) {
               console.log(tweet);
 
@@ -50,6 +54,8 @@ function ajaxBuscamedTweets(med) {
             });
           },
           error : function(jqXHR, textStatus, errorThrown) {
+            $('#tweetBox').html("<p>Ha ocurrido un error</p><p>Por favor contáctanos.</p>");
+
           },
 
           timeout: 12000000,
@@ -64,15 +70,13 @@ function ajaxTwitter(tweetUrl) {
           contentType: 'application/json; charset=utf-8',
 
           success: function(data) {
-            //var html = data.html.replace("twitter-tweet", "twitter-tweet tw-align-center")
 
             $('#tweetBox').append(data.html);
-            console.log(data.html);
             return data.html;
           },
           error : function(jqXHR, textStatus, errorThrown) {
 
-            alert("Can't access Twitter embed. Contact administrator.")
+            $('#tweetBox').append("<p>Can't access Twitter embed. Contact administrator.</p>")
           },
 
           timeout: 1200000,
@@ -86,15 +90,17 @@ function ajaxBuscamedWeb(med) {
 
           contentType: 'application/json; charset=utf-8',
           success: function(data) {
+            if (data.length == 0) {
+              $('#webBox').html("<p>No se consiguieron resultados</p><p>Si crees que esto es un error, contáctanos.</p>");
+            }
+
             data.forEach( function(store) {
-              console.log(store);
               var html = htmlForWeb(store);
               $('#webBox').append(html);
-
-
             });
           },
           error : function(jqXHR, textStatus, errorThrown) {
+            $('#webBox').html("<p>Ha ocurrido un error</p><p>Por favor contáctanos.</p>");
           },
 
           timeout: 12000000,
@@ -129,7 +135,6 @@ function ajaxBuscamedStores(med) {
           contentType: 'application/json; charset=utf-8',
           success: function(data) {
             data.forEach( function(store) {
-              console.log(store);
               var html = htmlForStores(store);
               $('#webBox').append(html);
 
