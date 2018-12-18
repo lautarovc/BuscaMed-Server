@@ -22,6 +22,8 @@ function toggleWeb() {
 
 
 function startSearch() {
+  var med = $('#searchBox').val();
+  if (med == '') return;
 
   var resultsDiv = $('#results');
 
@@ -35,9 +37,6 @@ function startSearch() {
   if (!resultsDiv.is(':visible')) {
     resultsDiv.css('display', 'flex');
   }
-  var med = $('#searchBox').val();
-
-  if (med == '') return;
 
   ajaxBuscamedTweets(med);
 
