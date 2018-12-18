@@ -8,7 +8,7 @@ class Activo(models.Model):
 		return "%s" % (self.componente)
 
 class Medicina(models.Model):
-	nombre = models.TextField(verbose_name=('Nombre de marca'), unique=True)
+	nombre = models.TextField(verbose_name=('Nombre de marca'))
 	activo = models.ForeignKey(Activo, related_name='componente-activo+', null=True, on_delete=models.CASCADE)
 
 	def __str__(self):
