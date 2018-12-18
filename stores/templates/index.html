@@ -62,16 +62,20 @@
         <div class="col-lg-6 resultCol">
           <div class="card text-center">
             <h5 onclick="toggleTweets();" id="tweets-header" class="card-header text-center text-white">Twitter</h5>
+            <div id="tweetLoading" class="card-body text-center">
+              <img class="loading" src="{% static 'img/loading-icon.gif' %}">
+            </div>
             <div id="tweetBox" class="card-body text-center">
-
             </div>
           </div>
         </div>
         <div class="col-lg-6 resultCol">
           <div class="card text-center">
             <h5 onclick="toggleWeb();" id="web-header" class="card-header text-center text-white">Farmacias</h5>
+            <div id="webLoading" class="card-body">
+              <img class="loading" src="{% static 'img/loading-icon.gif' %}">
+            </div>            
             <div id="webBox" class="card-body">
-
             </div>
           </div>
         </div>

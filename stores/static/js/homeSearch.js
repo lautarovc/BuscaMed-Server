@@ -8,6 +8,9 @@ Contains ajax functions that use the Buscamed API rest to find medicines
 
 var user = "buscamedvzla"
 var mail = "gmail"
+var existsWeb1 = 0;
+var existsWeb2 = 0;
+
 
 function toggleTweets() {
   $('#tweetBox').toggle();
@@ -24,6 +27,10 @@ function startSearch() {
 
   $('#tweetBox').html("");
   $('#webBox').html("");
+  $('#tweetLoading').show();
+  $('#webLoading').show();
+  existsWeb1 = 0;
+  existsWeb2 = 0;
 
   if (!resultsDiv.is(':visible')) {
     resultsDiv.css('display', 'flex');
@@ -47,6 +54,9 @@ function ajaxBuscamedTweets(med) {
           contentType: 'application/json; charset=utf-8',
           success: function(data) {
             console.log(data);
+
+            $('#tweetLoading').hide();
+
             if (data.length == 0) {
               $('#tweetBox').html("<p>No se consiguieron resultados</p><p>Si crees que esto es un error, contáctanos a <b>"+user+"@"+mail+".com</b></p>");
             }
@@ -79,7 +89,7 @@ function ajaxTwitter(tweetUrl) {
           },
           error : function(jqXHR, textStatus, errorThrown) {
 
-            $('#tweetBox').append("<p>No se puede acceder al Twitter embed API. Por favor contáctanos a <b>"+user+"@"+mail+".com</b></p>")
+            $('#tweetBox').append("<p>No se puede acceder al Twitter embed API para este Tweet.</b></p>")
           },
 
           timeout: 1200000,
@@ -93,14 +103,27 @@ function ajaxBuscamedWeb(med) {
 
           contentType: 'application/json; charset=utf-8',
           success: function(data) {
+
             if (data.length == 0) {
-              $('#webBox').html("<p>No se consiguieron resultados</p><p>Si crees que esto es un error, contáctanos a <b>"+user+"@"+mail+".com</b></p>");
+              existsWeb1 = -1;
+            }
+            else {
+              existsWeb1 = 1;
             }
 
             data.forEach( function(store) {
               var html = htmlForWeb(store);
               $('#webBox').append(html);
             });
+
+
+            if (existsWeb1 < 0 && existsWeb2 < 0) {
+              $('#webLoading').hide();
+              $('#webBox').html("<p>No se consiguieron resultados</p><p>Si crees que esto es un error, contáctanos a <b>"+user+"@"+mail+".com</b></p>");
+            }
+            else if (existsWeb1 != 0 && existsWeb2 != 0) {
+              $('#webLoading').hide();
+            }
           },
           error : function(jqXHR, textStatus, errorThrown) {
             $('#webBox').html("<p>Ha ocurrido un error</p><p>Por favor contáctanos a <b>"+user+"@"+mail+".com</b></p>");
@@ -137,12 +160,28 @@ function ajaxBuscamedStores(med) {
 
           contentType: 'application/json; charset=utf-8',
           success: function(data) {
+
+            if (data.length == 0) {
+              existsWeb2 = -1;
+            } 
+            else {
+              existsWeb2 = 1;
+            }
+
             data.forEach( function(store) {
               var html = htmlForStores(store);
               $('#webBox').append(html);
-
-
             });
+
+
+            if (existsWeb1 < 0 && existsWeb2 < 0) {
+              $('#webLoading').hide();
+              $('#webBox').html("<p>No se consiguieron resultados</p><p>Si crees que esto es un error, contáctanos a <b>"+user+"@"+mail+".com</b></p>");
+            }
+
+            else if (existsWeb1 != 0 && existsWeb2 != 0) {
+              $('#webLoading').hide();
+            }
           },
           error : function(jqXHR, textStatus, errorThrown) {
           },

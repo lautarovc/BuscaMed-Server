@@ -244,6 +244,10 @@ nav.navbar-blue {
   text-align: -webkit-center;
 }
 
+.loading {
+  width:35px;
+}
+
 #webBox .card {
   border-color: rgba(0, 0, 0, 0.125);
 
