@@ -43,7 +43,6 @@ function startSearch() {
 
   ajaxBuscamedStores(med);
   ajaxBuscamedWeb(med);
-
 }
 
 function ajaxBuscamedTweets(med) {

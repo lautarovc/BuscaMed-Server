@@ -23,11 +23,11 @@ function readCSV() {
 
 	// Leemos archivo
 	var reader = new FileReader();
-		reader.readAsText(file);
+	reader.readAsText(file);
 
-		reader.onload = function(event){
+	reader.onload = function(event){
 
-			// Cargamos texto del CSV y revisamos que separador tiene
+		// Cargamos texto del CSV y revisamos que separador tiene
     	var csv = event.target.result;
     	var firstLine = csv.split('\n').shift();
 

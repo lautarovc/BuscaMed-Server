@@ -131,16 +131,41 @@ footer.footer {
 
 nav.navbar-blue {
   background-color: #119da4 !important;
-  height: 70px;
+  height: 90px;
   width: 100%;
   position: fixed;
   z-index: 1;
+}
+@media (max-width: 768px) {
+  nav.navbar-blue {
+    background-color: #119da4 !important;
+    height: 90px;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  .navbar>.container {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
 }
 
 .navbar-brand {
   color: white !important;
   font-size: 2rem;
   margin-bottom: -10px;
+}
+
+#logo {
+  width:100%;
+}
+
+@media (min-width: 768px) {
+  #logo {
+    width:60%;
+  }
 }
 
 #logoutButton {

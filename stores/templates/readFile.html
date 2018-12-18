@@ -32,15 +32,15 @@
 <body id="LoginForm">
 
  <!-- Navigation -->
-    <nav class="navbar navbar-light text-white bg-light static-top navbar-blue">
-      <div class="container">
-        <div>
-          <a class="navbar-brand" href="{% url 'home' %}">BuscaMed</a>
-          <p>Busca tus medicinas en un solo lugar</p>
-        </div>
-        <a id="logoutButton" href="{% url 'logout' %}">Salir</a> 
+  <nav class="navbar navbar-light text-white bg-light static-top navbar-blue">
+    <div class="container">
+      <div>
+        <a class="navbar-brand" href="{% url 'home' %}">
+          <img id="logo" src="{% static 'img/logo-slogan-web.png' %}">
+        </a>
       </div>
-    </nav>
+    </div>
+  </nav>
 
  <!-- Masthead -->
     <header class="masthead text-white text-center">
