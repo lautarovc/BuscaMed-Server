@@ -26,7 +26,10 @@ def collectInfo(tds):
 	totalList = []       
 	productsByLocation = []
 
+	print("Fundafarmacia WebCrawler...")
+
 	while i < len(tds):
+
 		state = re.split(r">|<", str(tds[i+3]))[2]
 		location = re.split(r">|<", str(tds[i+4]))[2]
 		currentlocation = location

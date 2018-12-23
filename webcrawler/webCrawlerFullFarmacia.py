@@ -31,6 +31,8 @@ def collectInfo(tds):
 	totalList = []
 	productsByStore = []
 
+	print("FullFarmacia WebCrawler...")
+
 	while i < len(tds):
 
 		if tds[i].get('class')[0] == 'productNameStyle':   

@@ -21,16 +21,19 @@ def collectInfo(tds):
 	# Estructura store: {'farmacia': 'Farmarket', 'sede' : nombre, 'productos' : productosPorTienda} 
 	# Estructura products: {'producto' : nombre, 'disponibles' : xxx}
 	
-	i = 3 
+	i = 2
 
 	totalList = []       
 	productsByStore = []
+
+	print("Farmarket WebCrawler...")
 	
 	while i < len(tds):
+
 		if tds[i].get('class')[0] == 'CeldaCentradaTextoBlanco' and tds[i].get('colspan') == '2':
 			storeLocation = re.split(r':|[|]', tds[i].string)[1].strip()
 		
-			i += 3 
+			i += 4 
 
 			while i < len(tds) and tds[i].get('class')[0] == 'FondoTabla':
 				productRegex = re.split(r">|<", str(tds[i]))[2]
