@@ -1,3 +1,10 @@
+/*
+readFile.js
+Authors: Lautaro Villalon
+         Yarima Luciani
+
+Contains functions that read a CSV file and push the data as a JSON object via POST to the server.
+*/
 
 function checkData(data) {
 	var firstRow = data[0]
@@ -63,10 +70,4 @@ function readCSV() {
 			$('#formButton').click();
 	}
 	reader.onerror = function(){ alert('Unable to read ' + file.fileName); };
-}
-
-function instructions() {
-
-	alert("Debe subir un archivo .csv que tenga las siguientes columnas: activo, medicina, presentacion y disponibilidad. Puede contener otras columnas, pero las anteriores deben aparecer con dichos nombres.");
-	return;
 }

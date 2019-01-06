@@ -14,10 +14,32 @@ var existsWeb2 = 0;
 
 function toggleTweets() {
   $('#tweetBox').toggle();
+
+  var tweetMin = $('#tweetsToggle');
+
+  if (tweetMin.hasClass("fa-minus")) {
+    tweetMin.removeClass("fa-minus");
+    tweetMin.addClass("fa-plus");
+  }
+  else if (tweetMin.hasClass("fa-plus")) {
+    tweetMin.removeClass("fa-plus");
+    tweetMin.addClass("fa-minus");
+  }
 }
 
 function toggleWeb() {
   $('#webBox').toggle();
+
+  var webMin = $('#webToggle');
+
+  if (webMin.hasClass("fa-minus")) {
+    webMin.removeClass("fa-minus");
+    webMin.addClass("fa-plus");
+  }
+  else if (webMin.hasClass("fa-plus")) {
+    webMin.removeClass("fa-plus");
+    webMin.addClass("fa-minus");
+  }
 }
 
 
