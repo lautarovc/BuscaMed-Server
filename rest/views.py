@@ -112,7 +112,7 @@ def buscaTwitter(medName):
 	if dbTweets:
 		edad = datetime.now(timezone.utc) - dbTweets[0].fecha
 
-		# Si el tweet mas reciente fue hace menos de 30 minutos
+		# Si el tweet mas reciente fue hace menos de TWEET_UPDATE
 		if ((edad.seconds/60) < settings.TWEET_UPDATE):
 			listaTweets = dbTweets
 
@@ -225,9 +225,9 @@ class WebViewSet(viewsets.ViewSet):
 		medicina = request.GET.get('med', None)
 
 		if medicina:
-			queryset = webCrawlerFarmarket('https://www.farmarket.com.ve/sitio/index.php/resultados-busqueda-productos/',medicina)
+			queryset = webCrawlerFarmarket(medicina)
 			queryset2 = webCrawlerFullFarmacia(medicina)
-			queryset3 = webCrawlerFundafarmacia('http://www.fundafarmacia.com/consulta/busqueda.php', medicina)
+			queryset3 = webCrawlerFundafarmacia(medicina)
 			queryset += queryset2 + queryset3
 		else:
 			queryset = []

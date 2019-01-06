@@ -2,7 +2,9 @@ import requests
 from bs4 import BeautifulSoup 
 import re 
 
-def webCrawler(url, medicine):
+def webCrawler(medicine):
+	url = 'http://www.fundafarmacia.com/consulta/busqueda.php'
+
 	try:
 		sourceCode = requests.post(url, data = {'producto' : medicine, 'estado' : '', 'lugar' : ''}, timeout=30)
 	except:
@@ -53,7 +55,7 @@ def collectInfo(tds):
 	return totalList
 
 def main():
-	print(webCrawler('http://www.fundafarmacia.com/consulta/busqueda.php', 'atamel'))
+	print(webCrawler('atamel'))
 
 if __name__ == "__main__":
 	main()
