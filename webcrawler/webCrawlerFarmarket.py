@@ -39,6 +39,7 @@ def collectInfo(tds):
 
 			while i < len(tds) and tds[i].get('class')[0] == 'Resultado':
 				productRegex = re.split(r">|<", str(tds[i]))[2]
+				productRegex = productRegex.split(" - Componente:")[0]
 				product = {'nombre' : productRegex, 'disponibles' : int(tds[i+1].string)}
 				productsByStore.append(product)
 
