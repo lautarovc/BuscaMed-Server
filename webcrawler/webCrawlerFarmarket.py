@@ -35,7 +35,7 @@ def collectInfo(tds):
 		if tds[i].get('class')[0] == 'CeldaCentradaTextoBlanco' and tds[i].get('colspan') == '2':
 			storeLocation = re.split(r':|[|]', tds[i].string)[1].strip()
 		
-			while tds[i].get('class')[0] != 'Resultado':
+			while i < len(tds) and tds[i].get('class')[0] != 'Resultado':
 				i += 1
 
 
