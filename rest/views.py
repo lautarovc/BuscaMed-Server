@@ -224,12 +224,23 @@ class WebViewSet(viewsets.ViewSet):
 	def list(self, request):
 		medicina = request.GET.get('med', None)
 
+		queryset = []
+
 		if medicina:
-			queryset = webCrawlerFarmarket(medicina)
-			queryset2 = webCrawlerFullFarmacia(medicina)
-			queryset3 = webCrawlerFundafarmacia(medicina)
-			queryset += queryset2 + queryset3
-		else:
-			queryset = []
+			try:
+				queryset += webCrawlerFarmarket(medicina)
+			except:
+				pass
+
+			try:
+				queryset += webCrawlerFullFarmacia(medicina)
+			except:
+				pass
+
+			try:
+				queryset += webCrawlerFundafarmacia(medicina)
+			except:
+				pass
+
 
 		return Response(queryset)

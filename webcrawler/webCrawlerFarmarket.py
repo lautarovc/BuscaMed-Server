@@ -35,7 +35,9 @@ def collectInfo(tds):
 		if tds[i].get('class')[0] == 'CeldaCentradaTextoBlanco' and tds[i].get('colspan') == '2':
 			storeLocation = re.split(r':|[|]', tds[i].string)[1].strip()
 		
-			i += 4 
+			while tds[i].get('class')[0] != 'Resultado':
+				i += 1
+
 
 			while i < len(tds) and tds[i].get('class')[0] == 'Resultado':
 				productRegex = re.split(r">|<", str(tds[i]))[2]
@@ -54,7 +56,15 @@ def collectInfo(tds):
 	return totalList
 
 def main():
-	print(webCrawler('atamel'))
+	results = webCrawler('atamel')
+
+	count = 0
+	for result in results:
+		for product in result['productos']:
+			count += 1
+
+	print(count)
+	print(results)
 
 if __name__ == "__main__":
 	main()
